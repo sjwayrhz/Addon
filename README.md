@@ -1,2 +1,2 @@
-# Addon
+# addons
 AAC-addons
