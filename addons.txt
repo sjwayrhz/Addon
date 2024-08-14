@@ -1,2 +1,4 @@
 example_addon
 hot_swap
+notepad
+FishBuddy
