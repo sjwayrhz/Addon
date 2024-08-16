@@ -87,6 +87,33 @@ return {
         }
     },
     {
+        name = "Dawnsdrop",
+        title_id = 191,
+        gear = {
+            {
+                name="Radiant Dawnsdrop Cap"
+            },
+			{
+                name="Radiant Dawnsdrop Jerkin"
+            },
+			{
+                name="Radiant Dawnsdrop Belt"
+            },
+			{
+                name="Radiant Dawnsdrop Guards"
+            },
+			{
+                name="Radiant Dawnsdrop Fists"
+            },
+			{
+                name="Radiant Dawnsdrop Breeches"
+            },
+			{
+                name="Radiant Dawnsdrop Boots"
+            }
+        }
+    },
+    {
         name = "Sleep",
 		title_id = 191,
         gear = {
