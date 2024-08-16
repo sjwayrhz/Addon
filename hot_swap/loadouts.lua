@@ -6,32 +6,56 @@
 -- If you wish to equip something into the offhand or into a secondary ring/earring slot you can add the alternative = true value to the gear object
 return {
     {
+        name = "PvP" ,
+        title_id = 176,
+        gear = {
+            {
+                name = "Hellforged Ranger's Cap"
+            },  
+            {
+                name = "Hellforged Ranger's Jerkin"
+            }, 
+            {
+                name = "Hellforged Ranger's Breeches"
+            }, 
+            {
+                name = "Hellforged Ranger's Fists"
+            },            
+            {
+                name = "Hellforged Sash"
+            },
+            {
+                name = "Hellforged Sleeves"
+            },
+            {
+                name = "Hellforged Ranger's Boots"
+            }
+        }
+    },    
+    {
         name  = "Barter",
         title_id = 618,
         gear = {
             {
-                name="Radiant Dawnsdrop Cap"
+                name = "Hellforged Ranger's Cap"
+            },  
+            {
+                name = "Hellforged Ranger's Jerkin"
+            }, 
+            {
+                name = "Hellforged Ranger's Breeches"
+            }, 
+            {
+                name = "Hellforged Ranger's Fists"
+            }, 
+            {
+                name = "Hellforged Sash"
             },
-			{
-                name="Radiant Dawnsdrop Jerkin"
-            }
-			,
-			{
-                name="Radiant Dawnsdrop Belt"
-            }
-			,
-			{
-                name="Radiant Dawnsdrop Guards"
-            }
-			,
-			{
-                name="Radiant Dawnsdrop Fists"
+            {
+                name = "Hellforged Sleeves"
             },
-			{
-                name="Radiant Dawnsdrop Breeches"
-            },
-			{
-                name="Radiant Dawnsdrop Boots"
+            {
+                name = "Radiant Dawnsdrop Boots"
             }
         }
     },
@@ -44,16 +68,13 @@ return {
             },
 			{
                 name="Radiant Dawnsdrop Jerkin"
-            }
-			,
+            },
 			{
                 name="Radiant Dawnsdrop Belt"
-            }
-			,
+            },
 			{
                 name="Radiant Dawnsdrop Guards"
-            }
-			,
+            },
 			{
                 name="Radiant Dawnsdrop Fists"
             },
@@ -75,12 +96,10 @@ return {
             },
 			{
 				name="Lullaby Pajama Bottoms",
-			}
-			,
+			},
 			{
 				name="Lullaby Pajama Slippers",
-			}
-			,
+			},
 			{
 				name="Lullaby Pajama Mittens",
 			}
