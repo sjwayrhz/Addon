@@ -6,7 +6,7 @@
 -- If you wish to equip something into the offhand or into a secondary ring/earring slot you can add the alternative = true value to the gear object
 return {
     {
-        name = "PvP" ,
+        name = "Archery" ,
         title_id = 176,
         gear = {
             {
