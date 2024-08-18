@@ -82,6 +82,9 @@ return {
 		title_id = 191,
         gear = {
             {
+                name = "Radiant Dawnsdrop Cap"
+            },
+            {
                 name = "Lullaby Pajama Top",
                 -- alternative = true
             },
