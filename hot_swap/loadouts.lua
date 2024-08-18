@@ -31,29 +31,38 @@ return {
                 name = "Hellforged Ranger's Boots"
             }
         }
-    },    
+    },  
     {
-        name  = "Barter",
-        title_id = 618,
+        name = "Dawnsdrop",
+        title_id = 191,
         gear = {
             {
-                name = "Hellforged Ranger's Cap"
-            },  
-            {
-                name = "Hellforged Ranger's Jerkin"
-            }, 
-            {
-                name = "Hellforged Ranger's Breeches"
-            }, 
-            {
-                name = "Hellforged Ranger's Fists"
-            }, 
-            {
-                name = "Hellforged Sash"
+                name = "Radiant Dawnsdrop Cap"
             },
-            {
-                name = "Hellforged Sleeves"
+			{
+                name = "Radiant Dawnsdrop Jerkin"
             },
+			{
+                name = "Radiant Dawnsdrop Belt"
+            },
+			{
+                name = "Radiant Dawnsdrop Guards"
+            },
+			{
+                name = "Radiant Dawnsdrop Fists"
+            },
+			{
+                name = "Radiant Dawnsdrop Breeches"
+            },
+			{
+                name = "Radiant Dawnsdrop Boots"
+            }
+        }
+    },  
+    {
+        name  = "Commerce",
+        title_id = 618,
+        gear = {
             {
                 name = "Radiant Dawnsdrop Boots"
             }
@@ -63,53 +72,8 @@ return {
         name = "Fishing",
         title_id = 87,
         gear = {
-            {
-                name="Radiant Dawnsdrop Cap"
-            },
 			{
-                name="Radiant Dawnsdrop Jerkin"
-            },
-			{
-                name="Radiant Dawnsdrop Belt"
-            },
-			{
-                name="Radiant Dawnsdrop Guards"
-            },
-			{
-                name="Radiant Dawnsdrop Fists"
-            },
-			{
-                name="Radiant Dawnsdrop Breeches"
-            },
-			{
-                name="Radiant Dawnsdrop Boots"
-            }
-        }
-    },
-    {
-        name = "Dawnsdrop",
-        title_id = 191,
-        gear = {
-            {
-                name="Radiant Dawnsdrop Cap"
-            },
-			{
-                name="Radiant Dawnsdrop Jerkin"
-            },
-			{
-                name="Radiant Dawnsdrop Belt"
-            },
-			{
-                name="Radiant Dawnsdrop Guards"
-            },
-			{
-                name="Radiant Dawnsdrop Fists"
-            },
-			{
-                name="Radiant Dawnsdrop Breeches"
-            },
-			{
-                name="Radiant Dawnsdrop Boots"
+                name = "Radiant Dawnsdrop Boots"
             }
         }
     },
@@ -118,17 +82,17 @@ return {
 		title_id = 191,
         gear = {
             {
-                name="Lullaby Pajama Top",
+                name = "Lullaby Pajama Top",
                 -- alternative = true
             },
 			{
-				name="Lullaby Pajama Bottoms",
+				name = "Lullaby Pajama Bottoms",
 			},
 			{
-				name="Lullaby Pajama Slippers",
+				name = "Lullaby Pajama Slippers",
 			},
 			{
-				name="Lullaby Pajama Mittens",
+				name = "Lullaby Pajama Mittens",
 			}
         }
     }
