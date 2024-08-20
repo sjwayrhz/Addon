@@ -1,2 +1,3 @@
 hot_swap
 FishBuddy
+AutoRaid
