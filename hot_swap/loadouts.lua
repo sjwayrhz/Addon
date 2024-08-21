@@ -5,6 +5,7 @@
 -- The gear name should be the exact name displayed in-game
 -- If you wish to equip something into the offhand or into a secondary ring/earring slot you can add the alternative = true value to the gear object
 return {
+    --[[
     {
         name = "Archery" ,
         title_id = 176,
@@ -32,6 +33,34 @@ return {
             }
         }
     },  
+    --]]
+    {
+        name = "Battlerage" ,
+        title_id = 176,
+        gear = {
+            {
+                name = "Hellforged Warrior's Cap"
+            },  
+            {
+                name = "Hellforged Warrior's Jerkin"
+            }, 
+            {
+                name = "Hellforged Warrior's Breeches"
+            }, 
+            {
+                name = "Hellforged Warrior's Fists"
+            },            
+            {
+                name = "Hellforged Sash"
+            },
+            {
+                name = "Hellforged Sleeves"
+            },
+            {
+                name = "Hellforged Warrior's Boots"
+            }
+        }
+    },
     {
         name = "Dawnsdrop",
         title_id = 191,
