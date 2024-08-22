@@ -1,7 +1,9 @@
 
 `::
 {
-    SoundPlay "*16"
+    SoundPlay "voice\start.mp3"
+
+    var := 100 ;
     Loop 100
     {
         send "3"
@@ -18,10 +20,19 @@
         Send "e"
         Sleep(50)
 
-        if GetKeyState('``', "P")
-            {
-                SoundPlay "*64"
+        var-- ;
+
+        if (GetKeyState('``', "P") || var <= 1)
+        {
+            if (var <= 1)
+                {
+                    SoundPlay "voice\stop.mp3"
+                }
+                else
+                {
+                    SoundPlay "voice\break.mp3"
+                }
                 Break
-            }
-    }
+        }        
+    }    
 }
