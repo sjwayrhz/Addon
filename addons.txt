@@ -1,3 +1,4 @@
 hot_swap
 FishBuddy
 AutoRaid
+notepad

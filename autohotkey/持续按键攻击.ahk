@@ -1,9 +1,27 @@
-; 按ctrl+e触发，每间隔50毫秒按一次E，重复100次。
-; 定义热键 Ctrl+E
-^e::
-    Loop, 100
+
+`::
+{
+    SoundPlay "*16"
+    Loop 100
     {
-        SendInput, {e}
-        Sleep, 50
+        send "3"
+        Sleep(10)
+        send "!q"
+        Sleep(10)
+        send "!e"
+        Sleep(10)
+        send "2"
+        Sleep(10)
+        send "1"
+        Sleep(10)
+
+        Send "e"
+        Sleep(50)
+
+        if GetKeyState('``', "P")
+            {
+                SoundPlay "*64"
+                Break
+            }
     }
-return
+}
