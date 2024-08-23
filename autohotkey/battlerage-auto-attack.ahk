@@ -27,17 +27,21 @@ Text:="|<>*38$300.00000000000000000000000000000000000000000000000000000000000000
 
         capture := FindText(&X,&Y, 804,23,1118,71,0.1,0.1,Text)
         if (capture){
-            SoundPlay "voice\an_enemy_has_been_slayed.mp3"
+            if (Random(1, 10) == 1){
+                SoundPlay "voice\an_enemy_has_been_slayed.mp3"
+            }
             break
         }
         Sleep(50)
-        Send("{F5}")
         Send("{F6}")
-        Send("{F7}")
-        Send("{F8}")
-        Send("{F10}")
-        Send("{F11}")
+        Send("{F5}")
+        Send("{F4}")
+        Send("{F3}")
+        Send("{F2}")
+        Send("{F1}")
         ; Send("3")
+        Send("z")
+        Send("x")
         Sleep(50)
         Loop 50{
             send "2"
