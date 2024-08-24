@@ -39,9 +39,6 @@ return {
         title_id = 176,
         gear = {
             {
-                name = "Hellkissed Nodachi"
-            },
-            {
                 name = "Hellforged Warrior's Cap"
             },  
             {
@@ -106,9 +103,6 @@ return {
         gear = {
 			{
                 name = "Radiant Dawnsdrop Boots"
-            },
-            {
-                name = "Master's Sturdy Fishing Rod"
             }
         }
     },
