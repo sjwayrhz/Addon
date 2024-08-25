@@ -1,4 +1,15 @@
 #Requires AutoHotkey v2.0
+#SuspendExempt
+`::
+{
+    if (A_IsSuspended) {
+        SoundPlay "voice\the_script_is_resumed.mp3"
+    } else {
+        SoundPlay "voice\the_script_is_suspended.mp3"        
+    }
+    Suspend
+}
+#SuspendExempt false
 
 #Include <FindText>
 
@@ -18,24 +29,17 @@ fish_died:="|<>*87$428.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 checkdebuff(){
     capture_fish_debuff := FindText(&X,&Y, 751,53,943,148,0.3,0.3,fish_debuff)
         if(capture_fish_debuff){
-            Send "{Numpad0}"
+            Send "{Space}"
         }
     }
 
-`::{
-    ; buff坐标
-    global x1:=793
-    global y1:=52
-    global x2:=965
-    global y2:=116
+
+search_fish(){
     ; 鱼的血条坐标
     global x3:=805
     global y3:=26
     global x4:=1246
     global y4:=73    
-
-    SoundPlay "voice\mirage-sport-fishing.mp3"
-
     while (true){
         ; 检查鱼是否上钩
         capture_fish_spawn := FindText(&X,&Y, x3,y3,x4,y4,0.1,0.1,fish_spawn)
@@ -47,6 +51,17 @@ checkdebuff(){
             break
         }
     }
+}
+
+fishing(){
+    ; buff坐标
+    global x1:=793
+    global y1:=52
+    global x2:=965
+    global y2:=116
+
+
+    SoundPlay "voice\mirage-sport-fishing.mp3"
 
     while(true){
 
@@ -92,4 +107,10 @@ checkdebuff(){
             checkdebuff()
         }
     }
+
+}
+
+Loop 1000{
+    search_fish()
+    fishing()
 }
