@@ -27,10 +27,11 @@ fish_died:="|<>*87$428.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 
 
 checkdebuff(){
-    capture_fish_debuff := FindText(&X, &Y, 751,53,943,148,0.3,0.3,fish_debuff)
+    capture_fish_debuff := FindText(&X, &Y, 751,53,943,148,0.4,0.4,fish_debuff)
         if(capture_fish_debuff){
             Send "{Space}"
-            sleep(2000)
+            checkreelin()
+            sleep(1000)
         }
     }
 
@@ -48,11 +49,29 @@ search_fish(){
             sleep(1000) 
         }
         else {
-            SoundPlay "voice\pink-marlin.mp3"
+            SoundPlay "voice\already-hooked.mp3"
             break
         }
     }
 }
+
+checkreelin(){
+    loop 5 {
+        ; big reel in
+        capture_key5 := FindText(&X,&Y, x1,y1,x2,y2,0.3,0.3,key5)
+        if(capture_key5){
+            Send "{Numpad8}"
+            sleep(3000)
+        }
+        ; reel in
+        capture_key4 := FindText(&X,&Y, x1,y1,x2,y2,0.3,0.3,key4)
+        if(capture_key4){
+            Send "{Numpad7}"
+            sleep(2000)
+        }
+    }
+}
+
 
 fishing(){
     ; buff坐标
@@ -60,9 +79,6 @@ fishing(){
     global y1:=52
     global x2:=965
     global y2:=116
-
-
-    SoundPlay "voice\mirage-sport-fishing.mp3"
 
     while(true){
 
@@ -74,37 +90,27 @@ fishing(){
             break
         }    
 
-        ; big reel in
-        capture_key5 := FindText(&X,&Y, x1,y1,x2,y2,0.3,0.3,key5)
-        if(capture_key5){
-            Send "{Numpad8}"
-            sleep(4000)
-        }
-        ; reel in
-        capture_key4 := FindText(&X,&Y, x1,y1,x2,y2,0.3,0.3,key4)
-        if(capture_key4){
-            Send "{Numpad7}"
-            sleep(4000)
-        }
+        checkreelin()
+
         ; give slack
         capture_key3 := FindText(&X,&Y, x1,y1,x2,y2,0.2,0.2,key3)
         if(capture_key3){
             Send "{Numpad5}"
-            ; sleep(2000)
+            sleep(1000)
             checkdebuff()
         }
         ; stand film right
         capture_key2 := FindText(&X,&Y, x1,y1,x2,y2,0.2,0.2,key2)
         if(capture_key2){
             Send "{Numpad6}"
-            ; sleep(2000)
+            sleep(1000)
             checkdebuff()
         }
         ; stand film left
         capture_key1 := FindText(&X,&Y, x1,y1,x2,y2,0.2,0.2,key1)
         if(capture_key1){
             Send "{Numpad4}"
-            ; sleep(2000)
+            sleep(1000)
             checkdebuff()
         }
     }
