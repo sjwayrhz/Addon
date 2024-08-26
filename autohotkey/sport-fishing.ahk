@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0
-#SuspendExempt
+
 `::
 {
-    if (A_IsSuspended) {
-        SoundPlay "voice\the_script_is_resumed.mp3"
+    Pause -1 
+    if (A_IsPaused) {
+        SoundPlay "voice\the_script_is_suspended.mp3"
     } else {
-        SoundPlay "voice\the_script_is_suspended.mp3"        
-    }
-    Suspend
+        SoundPlay "voice\the_script_is_resumed.mp3"        
+    }    
 }
-#SuspendExempt false
+
 
 #Include <FindText>
 
@@ -117,7 +117,9 @@ fishing(){
 
 }
 
-Loop 1000{
+
+
+Loop {
     search_fish()
     fishing()
 }
