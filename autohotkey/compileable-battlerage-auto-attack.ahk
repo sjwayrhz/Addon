@@ -1,11 +1,12 @@
-FileInstall "voice\the_script_is_resumed.mp3", A_WorkingDir "\the_script_is_resumed.mp3",1
-FileInstall "voice\the_script_is_suspended.mp3", A_WorkingDir "\the_script_is_suspended.mp3",1
-FileInstall "voice\start.mp3", A_WorkingDir "\start.mp3",1
-FileInstall "voice\quit_auto_attack_mode.mp3", A_WorkingDir "\quit_auto_attack_mode.mp3",1
-FileInstall "voice\an_enemy_has_been_slayed.mp3", A_WorkingDir "\an_enemy_has_been_slayed.mp3",1
-FileInstall "voice\you_have_been_slain.mp3", A_WorkingDir "\you_have_been_slain.mp3",1
-FileInstall "voice\rebirth_trauma.mp3", A_WorkingDir "\rebirth_trauma.mp3",1
+DirCreate "voice"
 
+FileInstall "voice\the_script_is_resumed.mp3", A_WorkingDir "\voice\the_script_is_resumed.mp3",1
+FileInstall "voice\the_script_is_suspended.mp3", A_WorkingDir "\voice\the_script_is_suspended.mp3",1
+FileInstall "voice\start.mp3", A_WorkingDir "\voice\start.mp3",1
+FileInstall "voice\quit_auto_attack_mode.mp3", A_WorkingDir "\voice\quit_auto_attack_mode.mp3",1
+FileInstall "voice\an_enemy_has_been_slayed.mp3", A_WorkingDir "\voice\an_enemy_has_been_slayed.mp3",1
+FileInstall "voice\you_have_been_slain.mp3", A_WorkingDir "\voice\you_have_been_slain.mp3",1
+FileInstall "voice\rebirth_trauma.mp3", A_WorkingDir "\voice\rebirth_trauma.mp3",1
 
 ; 强制脚本使用它最初启动的文件夹作为其工作目录.
 SetWorkingDir A_InitialWorkingDir
@@ -14,9 +15,9 @@ SetWorkingDir A_InitialWorkingDir
 ^`::
 {
     if (A_IsSuspended) {
-        SoundPlay A_WorkingDir "\the_script_is_resumed.mp3"
+        SoundPlay A_WorkingDir "\voice\the_script_is_resumed.mp3"
     } else {
-        SoundPlay A_WorkingDir "\the_script_is_suspended.mp3"        
+        SoundPlay A_WorkingDir "\voice\the_script_is_suspended.mp3"        
     }
     Suspend
 }
@@ -31,12 +32,12 @@ equipment_points:="|<>*103$98.0zzxzzzzzzw7zjzznzzzTzzzzxzQzvzjxzzzzzzzzzDrjzztzT
 
 `::
 {
-    SoundPlay A_WorkingDir "\start.mp3"
+    SoundPlay A_WorkingDir "\voice\start.mp3"
 
     Loop 1000
     {
         if (A_IsSuspended){
-            SoundPlay A_WorkingDir "\the_script_is_suspended.mp3"
+            SoundPlay A_WorkingDir "\voice\the_script_is_suspended.mp3"
             break
         }
 
@@ -45,19 +46,24 @@ equipment_points:="|<>*103$98.0zzxzzzzzzw7zjzznzzzTzzzzxzQzvzjxzzzzzzzzzDrjzztzT
         capture_monster := FindText(&X,&Y, 804,23,1118,71,0.1,0.1,monster)
         capture_equipment_points := FindText(&X,&Y, 308,67,477,110,0.2,0.2,equipment_points)
         if (capture_monster){
+            Loop 3 {
+                send "f"
+                Sleep(1000)
+            }
+
             if (Random(1, 10) == 1){
-                SoundPlay A_WorkingDir "\an_enemy_has_been_slayed.mp3"
+                SoundPlay A_WorkingDir "\voice\an_enemy_has_been_slayed.mp3"
             }
             break
         }
         else if (capture_equipment_points){
-            SoundPlay A_WorkingDir "\quit_auto_attack_mode.mp3"
+            SoundPlay A_WorkingDir "\voice\quit_auto_attack_mode.mp3"
             break
         }
 
         capture_aac := FindText(&X,&Y, 0,26,311,73,0.1,0.1,aac)
         if (capture_aac){
-            SoundPlay A_WorkingDir "\you_have_been_slain.mp3"
+            SoundPlay A_WorkingDir "\voice\you_have_been_slain.mp3"
             capture_rebirth_3m := FindText(&X:='wait', &Y:=60, 1,61,311,164,0.1,0.1,rebirth_3m)
             capture_rebirth_4m := FindText(&X:='wait', &Y:=60,164,0.1,0.1,rebirth_4m)
             if(capture_rebirth_3m || capture_rebirth_4m){
@@ -81,6 +87,7 @@ equipment_points:="|<>*103$98.0zzxzzzzzzw7zjzznzzzTzzzzxzQzvzjxzzzzzzzzzDrjzztzT
         Sleep(50)
         Loop 50{
             send "2"
-        }      
+        }
+        
     }    
 }
