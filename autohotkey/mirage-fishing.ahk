@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0
-#SuspendExempt
+
 `::
 {
-    if (A_IsSuspended) {
-        SoundPlay "voice\the_script_is_resumed.mp3"
+    Pause -1 
+    if (A_IsPaused) {
+        SoundPlay "voice\the_script_is_suspended.mp3"
     } else {
-        SoundPlay "voice\the_script_is_suspended.mp3"        
-    }
-    Suspend
+        SoundPlay "voice\the_script_is_resumed.mp3"        
+    }    
 }
-#SuspendExempt false
+
 
 #Include <FindText>
 
@@ -17,8 +17,8 @@ fish_debuff:="|<>*109$28.zzzzzCDzli3zzVwDzyD0zzkT3zy0sDzVvDQ0TtzkDzjzATxy7yzzvDz
 
 key5:="|<>*104$28.z1zszlnzDzDbxzs3rjzVyBzy1kTzw60zzkk1zza07zzrUDzymCTzu9zzzugDzz+rzztj6zzUT9zznazzzf7z0bbw0087w00UTs42N604DwM00tk0U"
 key4:="|<>*108$27.zy0Lzk00Ts081zkPMDwQ1kz6837XW0ANdU9nMRnWCLTA9WjaFAJYy83cjs2TLVQkmxzaKrXimUT8SDbBUlywS66TzsoMHzyUlzzq1wASk31SyHYL7tsIVza3dzykDzU"
-key3:="|<>*104$27.zzzzzUTzzsVzzzNzkDrw00yzs07jzk1xzy0DzzU1vzs0DTt71zy9yDzpMHzwfTTzBsvzs7nbztnKTjj6nzzznDzC88zr05bzU0ozss7LyNlwzi66zvUw3zw30A"
-key2:="|<>*115$28.0000A2000kz0097D000QD200UDs030Dk04QTY0TtjM0Abns1Wzgk6f3v0mxxs3PlvkM7nj0wtjS1vlyy0tzzw03zxM00zVY01zzks1zrzPXDzkzUU"
+key3:="|<>*115$28.0000A2000kz0097D000QD200UDs030Dk04QTY0TtjM0Abns1Wzgk6f3v0mxxs3PlvkM7nj0wtjS1vlyy0tzzw03zxM00zVY01zzks1zrzPXDzkzUU"
+key2:="|<>*104$27.zzzzzUTzzsVzzzNzkDrw00yzs07jzk1xzy0DzzU1vzs0DTt71zy9yDzpMHzwfTTzBsvzs7nbztnKTjj6nzzznDzC88zr05bzU0ozss7LyNlwzi66zvUw3zw30A"
 key1:="|<>*103$26.zzw3zzy4TUTwrk03yw03zjU3zxs0zzS17zzVszysmDzi8bzzq/3zz+rzzawTz87mzbnartywSwnzzz88xzqU3jxM0Dzi1lzrlnjzMMRzUQ3zs"
 
 
@@ -27,9 +27,11 @@ fish_died:="|<>*87$428.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
 
 
 checkdebuff(){
-    capture_fish_debuff := FindText(&X,&Y, 751,53,943,148,0.3,0.3,fish_debuff)
+    capture_fish_debuff := FindText(&X, &Y, 751,53,943,148,0.4,0.4,fish_debuff)
         if(capture_fish_debuff){
             Send "{Space}"
+            checkreelin()
+            sleep(1000)
         }
     }
 
@@ -53,15 +55,30 @@ search_fish(){
     }
 }
 
+checkreelin(){
+    loop 5 {
+        ; big reel in
+        capture_key5 := FindText(&X,&Y, x1,y1,x2,y2,0.3,0.3,key5)
+        if(capture_key5){
+            Send "{Numpad7}"
+            sleep(3000)
+        }
+        ; reel in
+        capture_key4 := FindText(&X,&Y, x1,y1,x2,y2,0.3,0.3,key4)
+        if(capture_key4){
+            Send "{Numpad5}"
+            sleep(2000)
+        }
+    }
+}
+
+
 fishing(){
     ; buff坐标
     global x1:=793
     global y1:=52
     global x2:=965
     global y2:=116
-
-
-    SoundPlay "voice\mirage-sport-fishing.mp3"
 
     while(true){
 
@@ -73,44 +90,36 @@ fishing(){
             break
         }    
 
-        ; 小键盘按键7，在剩余4秒的时候
-        capture_key5 := FindText(&X,&Y, x1,y1,x2,y2,0.3,0.3,key5)
-        if(capture_key5){
-            Send "{Numpad7}"
-            sleep(4000)
-        }
-        ; 小键盘按键5，在剩余4秒的时候
-        capture_key4 := FindText(&X,&Y, x1,y1,x2,y2,0.3,0.3,key4)
-        if(capture_key4){
-            Send "{Numpad5}"
-            sleep(4000)
-        }
-        ;小键盘按键4，在剩余4秒
+        checkreelin()
+
+        ; give slack
         capture_key3 := FindText(&X,&Y, x1,y1,x2,y2,0.2,0.2,key3)
         if(capture_key3){
-            Send "{Numpad4}"
-            sleep(2000)
+            Send "{Numpad6}"
+            sleep(1000)
             checkdebuff()
         }
-        ;小键盘按键6，在剩余4秒
+        ; stand film right
         capture_key2 := FindText(&X,&Y, x1,y1,x2,y2,0.2,0.2,key2)
         if(capture_key2){
-            Send "{Numpad6}"
-            sleep(2000)
+            Send "{Numpad4}"
+            sleep(1000)
             checkdebuff()
         }
-        ;小键盘按键t，在剩余4秒
+        ; stand film left
         capture_key1 := FindText(&X,&Y, x1,y1,x2,y2,0.2,0.2,key1)
         if(capture_key1){
             Send "t"
-            sleep(2000)
+            sleep(1000)
             checkdebuff()
         }
     }
 
 }
 
-Loop 1000{
+
+
+Loop {
     search_fish()
     fishing()
 }
