@@ -56,7 +56,7 @@ threshold := "|<>*154$159.200000000000000000000000000M000600000U0U000000000000U3
 
             elapsed_time := A_TickCount - start_time
 
-            if (elapsed_time > 15000)  {
+            if (elapsed_time > 20000)  {
                 SoundPlay A_WorkingDir "\voice\an_enemy_has_been_slayed.mp3"
             }
             break
