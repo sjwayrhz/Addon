@@ -32,7 +32,7 @@ return {
     --[[
     {
         name = "Archery" ,
-        title_id = 176,
+        title_id = 177,
         gear = {
             {
                 name = "Hellforged Ranger's Cap"
@@ -60,7 +60,7 @@ return {
     --]]
     {
         name = "Battlerage" ,
-        title_id = 176,
+        title_id = 177,
         gear = {
             {
                 name = "Hellkissed Nodachi"
