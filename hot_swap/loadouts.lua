@@ -4,6 +4,30 @@
 -- The title id is optional and can be found at https://archeagecodex.com/ or you can ask around for it
 -- The gear name should be the exact name displayed in-game
 -- If you wish to equip something into the offhand or into a secondary ring/earring slot you can add the alternative = true value to the gear object
+Dawnsdrop = {
+    {
+        name = "Radiant Dawnsdrop Cap"
+    },
+    {
+        name = "Radiant Dawnsdrop Jerkin"
+    },
+    {
+        name = "Radiant Dawnsdrop Belt"
+    },
+    {
+        name = "Radiant Dawnsdrop Guards"
+    },
+    {
+        name = "Radiant Dawnsdrop Fists"
+    },
+    {
+        name = "Radiant Dawnsdrop Breeches"
+    },
+    {
+        name = "Radiant Dawnsdrop Boots"
+    }
+}
+
 return {
     --[[
     {
@@ -68,54 +92,26 @@ return {
         name  = "Commerce",
         title_id = 618,
         gear = {
-            {
-                name = "Radiant Dawnsdrop Cap"
-            },
-			{
-                name = "Radiant Dawnsdrop Jerkin"
-            },
-			{
-                name = "Radiant Dawnsdrop Belt"
-            },
-			{
-                name = "Radiant Dawnsdrop Guards"
-            },
-			{
-                name = "Radiant Dawnsdrop Fists"
-            },
-			{
-                name = "Radiant Dawnsdrop Breeches"
-            },
-            {
-                name = "Radiant Dawnsdrop Boots"
-            }
+            Dawnsdrop[1],
+            Dawnsdrop[2],
+            Dawnsdrop[3],
+            Dawnsdrop[4],
+            Dawnsdrop[5],
+            Dawnsdrop[6],
+            Dawnsdrop[7],
         }
     },
     {
         name = "Fishing",
         title_id = 87,
         gear = {
-            {
-                name = "Radiant Dawnsdrop Cap"
-            },
-			{
-                name = "Radiant Dawnsdrop Jerkin"
-            },
-			{
-                name = "Radiant Dawnsdrop Belt"
-            },
-			{
-                name = "Radiant Dawnsdrop Guards"
-            },
-			{
-                name = "Radiant Dawnsdrop Fists"
-            },
-			{
-                name = "Radiant Dawnsdrop Breeches"
-            },
-			{
-                name = "Radiant Dawnsdrop Boots"
-            },
+            Dawnsdrop[1],
+            Dawnsdrop[2],
+            Dawnsdrop[3],
+            Dawnsdrop[4],
+            Dawnsdrop[5],
+            Dawnsdrop[6],
+            Dawnsdrop[7],
             {
                 name = "Master's Sturdy Fishing Rod"
             }
@@ -125,9 +121,7 @@ return {
         name = "Sleep",
 		title_id = 191,
         gear = {
-            {
-                name = "Radiant Dawnsdrop Cap"
-            },
+            Dawnsdrop[1],
             {
                 name = "Lullaby Pajama Top",
                 -- alternative = true
