@@ -32,8 +32,9 @@ threshold := "|<>*154$159.200000000000000000000000000M000600000U0U000000000000U3
 {
     SoundPlay A_WorkingDir "\voice\start.mp3"
 
-    Loop 1000
-    {
+    start_time := A_TickCount
+
+    Loop {
         if (A_IsSuspended){
             SoundPlay A_WorkingDir "\voice\the_script_is_suspended.mp3"
             break
@@ -53,10 +54,13 @@ threshold := "|<>*154$159.200000000000000000000000000M000600000U0U000000000000U3
                 Sleep(1000)
             }
 
-            if (Random(1, 10) == 1){
+            elapsed_time := A_TickCount - start_time
+
+            if (elapsed_time > 15000)  {
                 SoundPlay A_WorkingDir "\voice\an_enemy_has_been_slayed.mp3"
             }
             break
+
         }
         else if (capture_equipment_points){
             SoundPlay A_WorkingDir "\voice\quit_auto_attack_mode.mp3"
@@ -83,5 +87,5 @@ threshold := "|<>*154$159.200000000000000000000000000M000600000U0U000000000000U3
             send "2"
         }
         
-    }    
+    } 
 }
