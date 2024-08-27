@@ -63,10 +63,10 @@ return {
                 name = "Hellforged Warrior's Boots"
             }
         }
-    },
+    }, 
     {
-        name = "Dawnsdrop",
-        title_id = 191,
+        name  = "Commerce",
+        title_id = 618,
         gear = {
             {
                 name = "Radiant Dawnsdrop Cap"
@@ -86,15 +86,6 @@ return {
 			{
                 name = "Radiant Dawnsdrop Breeches"
             },
-			{
-                name = "Radiant Dawnsdrop Boots"
-            }
-        }
-    },  
-    {
-        name  = "Commerce",
-        title_id = 618,
-        gear = {
             {
                 name = "Radiant Dawnsdrop Boots"
             }
@@ -104,6 +95,24 @@ return {
         name = "Fishing",
         title_id = 87,
         gear = {
+            {
+                name = "Radiant Dawnsdrop Cap"
+            },
+			{
+                name = "Radiant Dawnsdrop Jerkin"
+            },
+			{
+                name = "Radiant Dawnsdrop Belt"
+            },
+			{
+                name = "Radiant Dawnsdrop Guards"
+            },
+			{
+                name = "Radiant Dawnsdrop Fists"
+            },
+			{
+                name = "Radiant Dawnsdrop Breeches"
+            },
 			{
                 name = "Radiant Dawnsdrop Boots"
             },
