@@ -1,5 +1,12 @@
 #Requires AutoHotkey v2.0
 
+DirCreate "voice"
+
+FileInstall "voice\the_script_is_resumed.mp3", A_WorkingDir "\voice\the_script_is_resumed.mp3",1
+FileInstall "voice\the_script_is_suspended.mp3", A_WorkingDir "\voice\the_script_is_suspended.mp3",1
+FileInstall "voice\pink_marlin.mp3", A_WorkingDir "\voice\pink_marlin.mp3",1
+FileInstall "voice\an_enemy_has_been_slayed.mp3", A_WorkingDir "\voice\an_enemy_has_been_slayed.mp3",1
+
 `::
 {
     Pause -1 
@@ -49,7 +56,7 @@ search_fish(){
             sleep(1000) 
         }
         else {
-            SoundPlay "voice\pink-marlin.mp3"
+            SoundPlay "voice\pink_marlin.mp3"
             break
         }
     }
