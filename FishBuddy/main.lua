@@ -18,9 +18,10 @@ local fishBuffIdsToAlert = {
 }
 
 local fishNamesToAlert = {
-	["Marlin"] = true, ["Blue Marlin"] = true, ["Tuna"] = true, ["Blue Tuna"] = true, ["Sunfish"] = true,
-	["Sailfish"] = true, ["Sturgeon"] = true, ["Pink Pufferfish"] = true,
-	["Carp"] = true, ["Arowana"] = true, ["Pufferfish"] = true, ["Eel"] = true
+    ["Marlin"] = true, ["Blue Marlin"] = true, ["Tuna"] = true, ["Blue Tuna"] = true, ["Sunfish"] = true,
+    ["Sailfish"] = true, ["Sturgeon"] = true, ["Pink Pufferfish"] = true,
+    ["Carp"] = true, ["Arowana"] = true, ["Pufferfish"] = true, ["Eel"] = true, ["Monster Enclosure"] = true,
+    ["Pink Marlin"] = true, ["Treasure Mimic"] = true
 }
 
 -- UI Elements
