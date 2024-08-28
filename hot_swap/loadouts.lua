@@ -78,10 +78,10 @@ return {
                 name = "Hellforged Warrior's Fists"
             },            
             {
-                name = "Hellforged Sash"
+                name = "Dark Watcher Guards"
             },
             {
-                name = "Hellforged Sleeves"
+                name = "Dark Watcher Belt"
             },
             {
                 name = "Hellforged Warrior's Boots"
