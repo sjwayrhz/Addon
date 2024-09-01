@@ -2,3 +2,5 @@ hot_swap
 example_addon
 id_finder
 zeal_alert
+FishBuddy
+hello_world
