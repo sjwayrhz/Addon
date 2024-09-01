@@ -118,6 +118,23 @@ return {
         }
     },
     {
+        name = "Soulforged",
+        gear = {
+            {
+                name = "Soulforged Gauntlets",
+            },            
+            {
+                name = "Soulforged Greaves"
+            },
+            {
+                name = "Soulforged Cuirass"
+            },
+            {
+                name = "Soulforged Sabatons"
+            },
+        }
+    },
+    {
         name = "Sleep",
 		title_id = 191,
         gear = {
