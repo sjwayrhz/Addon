@@ -28,8 +28,16 @@ Dawnsdrop = {
     }
 }
 
+glider = {
+    {
+        name = "Enhanced Sloth Glider Companion: Launch Height"
+    },
+    {
+        name = "Enhanced Skywhisper Glider: Launch Height"
+    }
+}
+
 return {
-    --[[
     {
         name = "Archery" ,
         title_id = 177,
@@ -47,17 +55,17 @@ return {
                 name = "Hellforged Ranger's Fists"
             },            
             {
-                name = "Hellforged Sash"
+                name = "Dark Watcher Guards"
             },
             {
-                name = "Hellforged Sleeves"
+                name = "Dark Watcher Belt"
             },
             {
                 name = "Hellforged Ranger's Boots"
-            }
+            },
+            glider[2]
         }
     },  
-    --]]
     {
         name = "Battlerage" ,
         title_id = 177,
@@ -85,7 +93,8 @@ return {
             },
             {
                 name = "Hellforged Warrior's Boots"
-            }
+            },
+            glider[2]
         }
     }, 
     {
@@ -99,6 +108,7 @@ return {
             Dawnsdrop[5],
             Dawnsdrop[6],
             Dawnsdrop[7],
+            glider[2]
         }
     },
     {
@@ -114,7 +124,8 @@ return {
             Dawnsdrop[7],
             {
                 name = "Master's Sturdy Fishing Rod"
-            }
+            },
+            glider[2]
         }
     },
     {
@@ -132,6 +143,7 @@ return {
             {
                 name = "Soulforged Sabatons"
             },
+            glider[1]
         }
     },
     {
