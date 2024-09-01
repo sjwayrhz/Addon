@@ -14,7 +14,7 @@ local example_addon = {
 local function Load() 
   -- To print a message to the chat, you can use this. Only you can see it! It's good for debugging
   -- This will be called BEFORE load!
-  api.Log:Info("Loading test addon...")
+  api.Log:Info(example_addon.name .. " loaded ")
 
   -- This is how you load another file. Here we just want to execute what's in bigger_raid_text.lua
   -- Check the file out to figure out what it does!
