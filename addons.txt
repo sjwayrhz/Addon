@@ -1,3 +1,4 @@
 hot_swap
-id_finder
 example_addon
+id_finder
+zeal_alert
