@@ -14,7 +14,7 @@ local playerId = api.Unit:GetUnitId("player")
 -- Now we want to save the coordinates of our player when the addon loads
 local settings = api.GetSettings("example_addon")
 
---local x, y, z = api.GetUnitWorldPosition("player")
+--local x, y, z = api.UnitWorldPosition("player")
 local message = settings.message or ""
 local x = settings.x or 0
 local y = settings.y or 0
@@ -42,7 +42,7 @@ local function OnChatMessage(chatType, speakerId, isHostile, speakerName, messag
 		local prefix = "/note "
 	  if string.sub(message, 1, #prefix) == prefix then
 			local note = string.sub(message, #prefix + 1)
-			x, y, z = api.Unit:GetUnitWorldPosition("player")
+			x, y, z = api.Unit:UnitWorldPosition("player")
 			message = note
 			label:SetText(message)
 			

@@ -3,7 +3,7 @@
 -- As you can see, it grabs an existing window
 
 local raidCommandMessage = ADDON:GetContent(UIC.RAID_COMMAND_MESSAGE)
-raidCommandMessage.style:SetFontSize(20)
+raidCommandMessage.style:SetFontSize(15)
 
 -- If you need to learn, you could try to make it a setting instead of a static value. 
 -- That would be a cool addon people would love :)
