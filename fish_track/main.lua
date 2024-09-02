@@ -101,7 +101,7 @@ local function OnUpdate()
 		if (settings.ShowBuffsOnTarget == true) then
 			F_SLOT.SetIconBackGround(targetFishIcon, selectedBuff.path)
 		else
-			F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(13834, 1).path)
+			F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(4899, 1).path)
 		end
 		F_SLOT.SetIconBackGround(fishBuffAlertIcon, selectedBuff.path)
 
