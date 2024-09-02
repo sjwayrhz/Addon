@@ -163,7 +163,8 @@ return {
 			},
 			{
 				name = "Lullaby Pajama Mittens",
-			}
+			},
+            glider[1]
         }
     }
 }

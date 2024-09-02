@@ -64,7 +64,7 @@ local function OnUpdate()
 				fishTrackerCanvas:Show(true)
 			end
 		end
-		F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(193, 1).path)
+		F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(5492, 1).path)
 		--if (settings.ShowTimers == true) then
 		--	fishBuffTargetTimeLeftLabel:SetText("Dead")
 		--end
@@ -101,7 +101,7 @@ local function OnUpdate()
 		if (settings.ShowBuffsOnTarget == true) then
 			F_SLOT.SetIconBackGround(targetFishIcon, selectedBuff.path)
 		else
-			F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(18405, 1).path)
+			F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(13834, 1).path)
 		end
 		F_SLOT.SetIconBackGround(fishBuffAlertIcon, selectedBuff.path)
 
