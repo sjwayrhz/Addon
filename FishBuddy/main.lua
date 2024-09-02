@@ -21,7 +21,8 @@ local fishNamesToAlert = {
 	["Marlin"] = true, ["Blue Marlin"] = true, ["Tuna"] = true, ["Blue Tuna"] = true, ["Sunfish"] = true,
 	["Sailfish"] = true, ["Sturgeon"] = true, ["Pink Pufferfish"] = true,
 	["Carp"] = true, ["Arowana"] = true, ["Pufferfish"] = true, ["Eel"] = true,
-	["Pink Marlin"] = true, ["Treasure Mimic"] = true
+	["Pink Marlin"] = true, ["Treasure Mimic"] = true,
+	["Diamond Shores Draugorc"] = true	
 }
 
 -- UI Elements
