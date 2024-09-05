@@ -62,8 +62,7 @@ return {
             },
             {
                 name = "Hellforged Ranger's Boots"
-            },
-            glider[2]
+            }
         }
     },  
     {
@@ -93,8 +92,7 @@ return {
             },
             {
                 name = "Hellforged Warrior's Boots"
-            },
-            glider[2]
+            }
         }
     }, 
     {
@@ -108,7 +106,9 @@ return {
             Dawnsdrop[5],
             Dawnsdrop[6],
             Dawnsdrop[7],
-            glider[2]
+            {
+                name = "Hellkissed Nodachi"
+            },
         }
     },
     {
@@ -125,7 +125,6 @@ return {
             {
                 name = "Master's Sturdy Fishing Rod"
             },
-            glider[2]
         }
     },
     {
@@ -143,7 +142,7 @@ return {
             {
                 name = "Soulforged Sabatons"
             },
-            glider[1]
+            glider[2]
         }
     },
     {
