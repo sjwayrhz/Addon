@@ -2,5 +2,4 @@ hot_swap
 example_addon
 id_finder
 zeal_alert
-FishBuddy
 fish_track
