@@ -1,10 +1,8 @@
-local api = require("api")
-
 -- Addon Information
 local fish_track = {
 	name = "fish_track",
-	author = "aac",
-	version = "0.0.1",
+	author = "Aac",
+	version = "0.0.2",
 	desc = "Track Buff For Fishing"
 }
 
@@ -32,6 +30,7 @@ local previousBuffTimeRemaining = 0
 local previousXYZ = "0,0,0"
 local previousFish
 local settings
+
 local function OnUpdate()
 	local currentFish = api.Unit:GetUnitId("target")
 	local currentFishName
@@ -39,10 +38,10 @@ local function OnUpdate()
 		currentFishName = api.Unit:GetUnitInfoById(currentFish).name
 	end
 	
-	-- 计算目标鱼的位置
+	-- Calculate target fish position
 	local x, y, z = api.Unit:GetUnitScreenPosition("target")
 
-	-- 切换目标时隐藏 UI
+	-- Hide UI when switching targets
 	if (currentFish ~= previousFish) then
 		fishTrackerCanvas:Show(false)
 		fishBuffAlertCanvas:Show(false)
@@ -53,7 +52,7 @@ local function OnUpdate()
 		fishBuffAlertCanvas:Show(false)
 	end
 	
-	-- 检查鱼的健康状态
+	-- Check fish health
 	local fishHealth = api.Unit:UnitHealth("target")
 	if (fishHealth ~= nil and fishHealth <= 0) then
 		fishBuffAlertCanvas:Show(false)
@@ -64,24 +63,22 @@ local function OnUpdate()
 				fishTrackerCanvas:Show(true)
 			end
 		end
+		-- Keep the original line for dead fish icon
 		F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(5492, 1).path)
-		--if (settings.ShowTimers == true) then
-		--	fishBuffTargetTimeLeftLabel:SetText("Dead")
-		--end
 	end
 
 	if (previousXYZ ~= (x .. "," .. y .. "," .. z)) then
 		fishTrackerCanvas:AddAnchor("BOTTOM", "UIParent", "TOPLEFT", x - 20, y - 80)
 	end
 	
-	-- 检查 Buff 数量
+	-- Check Buff count
 	local buffCount = api.Unit:UnitBuffCount("target")
 	if buffCount == nil or buffCount == 0 then
 		fishBuffAlertCanvas:Show(false)
-		return  -- 直接返回，不处理 Buff
+		return  -- Return if no Buff
 	end
 	
-	-- 尝试获取 Buff
+	-- Try to get Buff
 	local selectedBuff = api.Unit:UnitBuff("target", 2)
 	if (selectedBuff == nil) then
 		selectedBuff = api.Unit:UnitBuff("target", 3)
@@ -90,36 +87,38 @@ local function OnUpdate()
 		end
 	end
 	
-	-- 处理 Buff，但不显示中心提示
+	-- Process Buff
 	if (selectedBuff and fishBuffIdsToAlert[selectedBuff.buff_id] ~= nil) then
 		previousFish = currentFish
 		if (previousBuffTimeRemaining ~= selectedBuff.timeLeft) then
 			previousBuffTimeRemaining = selectedBuff.timeLeft
 		end
 
-		-- 更新图标
+		-- Update icon
 		if (settings.ShowBuffsOnTarget == true) then
 			F_SLOT.SetIconBackGround(targetFishIcon, selectedBuff.path)
 		else
-			F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(4899, 1).path)
+			-- Use the fishBuffIdsToAlert icon
+			F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(selectedBuff.buff_id, 1).path)
 		end
 		F_SLOT.SetIconBackGround(fishBuffAlertIcon, selectedBuff.path)
 
-		-- 取消中心提示信息的显示
-		fishBuffAlertCanvas:Show(false)  -- 隐藏中心提示
+		-- Hide center alert
+		fishBuffAlertCanvas:Show(false)  -- Hide center alert
 
-		-- 确保钓鱼追踪框显示
+		-- Ensure fish tracking frame is shown
 		if (fishNamesToAlert[currentFishName] ~= nil) then
 			fishTrackerCanvas:Show(true)
 		end
 	else 
-		-- 如果没有 Buff，隐藏提示
+		-- If no Buff, hide alert
 		fishBuffAlertCanvas:Show(false)
 	end
 end
+
 -- Load function to initialize the UI elements
 local function OnLoad()
-	api.Log:Info("Loading " .. fish_track.name .. " by " .. fish_track.author)
+	api.Log:Info("The author needs political asylum")
 
 	settings = api.GetSettings(fish_track.name)
 	local needsFirstSave = false
@@ -147,7 +146,7 @@ local function OnLoad()
 	fishBuffAlertCanvas:Show(false)
 
 	fishBuffAlertLabel = fishBuffAlertCanvas:CreateChildWidget("label", "fishBuffAlertLabel", 0, true)
-	fishBuffAlertLabel:SetText("FishBuddy")
+	fishBuffAlertLabel:SetText("fish_track")
 	fishBuffAlertLabel:AddAnchor("TOPLEFT", fishBuffAlertCanvas, "TOPLEFT", 0, 22)
 	fishBuffAlertLabel.style:SetFontSize(44)
 	fishBuffAlertLabel.style:SetAlign(ALIGN_LEFT)

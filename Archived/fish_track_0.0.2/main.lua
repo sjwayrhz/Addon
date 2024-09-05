@@ -1,11 +1,9 @@
-local api = require("api")
-
 -- Addon Information
-local fishBuddyAddon = {
-	name = "FishBuddy",
-	author = "Kg",
-	version = "0.6.1",
-	desc = "QoL improvements for fishing."
+local fish_track = {
+	name = "fish_track",
+	author = "Aac",
+	version = "0.0.2",
+	desc = "Track Buff For Fishing"
 }
 
 -- Buff IDs and corresponding alert messages
@@ -21,8 +19,7 @@ local fishNamesToAlert = {
 	["Marlin"] = true, ["Blue Marlin"] = true, ["Tuna"] = true, ["Blue Tuna"] = true, ["Sunfish"] = true,
 	["Sailfish"] = true, ["Sturgeon"] = true, ["Pink Pufferfish"] = true,
 	["Carp"] = true, ["Arowana"] = true, ["Pufferfish"] = true, ["Eel"] = true,
-	["Pink Marlin"] = true, ["Treasure Mimic"] = true,
-	["Diamond Shores Draugorc"] = true	
+	["Pink Marlin"] = true, ["Treasure Mimic"] = true
 }
 
 -- UI Elements
@@ -34,7 +31,6 @@ local previousXYZ = "0,0,0"
 local previousFish
 local settings
 
--- Update event to handle buff updates
 local function OnUpdate()
 	local currentFish = api.Unit:GetUnitId("target")
 	local currentFishName
@@ -42,11 +38,10 @@ local function OnUpdate()
 		currentFishName = api.Unit:GetUnitInfoById(currentFish).name
 	end
 	
-	
-	--Calculate when to move the anchor for the fish tracker
+	-- Calculate target fish position
 	local x, y, z = api.Unit:GetUnitScreenPosition("target")
 
-	--If you switch targets default to showing nothing until logic runs
+	-- Hide UI when switching targets
 	if (currentFish ~= previousFish) then
 		fishTrackerCanvas:Show(false)
 		fishBuffAlertCanvas:Show(false)
@@ -57,8 +52,7 @@ local function OnUpdate()
 		fishBuffAlertCanvas:Show(false)
 	end
 	
-	--If we have a valid fish health and it is 0 or less then stop showing the fish buff canvas
-	-- set the fish tracker icon to a skull for dead
+	-- Check fish health
 	local fishHealth = api.Unit:UnitHealth("target")
 	if (fishHealth ~= nil and fishHealth <= 0) then
 		fishBuffAlertCanvas:Show(false)
@@ -69,23 +63,22 @@ local function OnUpdate()
 				fishTrackerCanvas:Show(true)
 			end
 		end
-		F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(156, 1).path)
-		if (settings.ShowTimers == true) then
-			fishBuffTargetTimeLeftLabel:SetText("Dead")
-		end
+		-- Keep the original line for dead fish icon
+		F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(5492, 1).path)
 	end
 
 	if (previousXYZ ~= (x .. "," .. y .. "," .. z)) then
 		fishTrackerCanvas:AddAnchor("BOTTOM", "UIParent", "TOPLEFT", x - 20, y - 80)
 	end
 	
-	--If we have no buffs or it is nil hide the canvas
+	-- Check Buff count
 	local buffCount = api.Unit:UnitBuffCount("target")
 	if buffCount == nil or buffCount == 0 then
 		fishBuffAlertCanvas:Show(false)
+		return  -- Return if no Buff
 	end
 	
-	--Try to get buff 2 (normal), buff 3 (you're mass fishing), or buff 1 (you bugged the fish)
+	-- Try to get Buff
 	local selectedBuff = api.Unit:UnitBuff("target", 2)
 	if (selectedBuff == nil) then
 		selectedBuff = api.Unit:UnitBuff("target", 3)
@@ -94,82 +87,40 @@ local function OnUpdate()
 		end
 	end
 	
-	--If we have a buff we care about
-	if (fishBuffIdsToAlert[selectedBuff.buff_id] ~= nil) then
+	-- Process Buff
+	if (selectedBuff and fishBuffIdsToAlert[selectedBuff.buff_id] ~= nil) then
 		previousFish = currentFish
-		--Only update the buff time when it is changed
 		if (previousBuffTimeRemaining ~= selectedBuff.timeLeft) then
 			previousBuffTimeRemaining = selectedBuff.timeLeft
 		end
-		
-		--Setup icons and labels with buff info
+
+		-- Update icon
 		if (settings.ShowBuffsOnTarget == true) then
 			F_SLOT.SetIconBackGround(targetFishIcon, selectedBuff.path)
 		else
-			F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(26, 1).path)
+			-- Use the fishBuffIdsToAlert icon
+			F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(selectedBuff.buff_id, 1).path)
 		end
 		F_SLOT.SetIconBackGround(fishBuffAlertIcon, selectedBuff.path)
-		fishBuffAlertLabel:SetText(fishBuffIdsToAlert[selectedBuff.buff_id])
-		if (settings.ShowTimers == true) then
-			fishBuffTimeLeftLabel:SetText(string.format("%.1f", (previousBuffTimeRemaining / 1000)) .. "s")
-			if (settings.ShowBuffsOnTarget == true) then
-				fishBuffTargetTimeLeftLabel:SetText(string.format("%.1f", (previousBuffTimeRemaining / 1000)) .. "s")
-			else
-				fishBuffTargetTimeLeftLabel:SetText("")
-			end
-		end
 
-		--Handle if time is left on a buff or not
-		if (selectedBuff.timeLeft > 0) then
-			if (fishNamesToAlert[currentFishName] ~= nil) then
-				fishBuffAlertCanvas:Show(true)
-			end
-			if z < 0 or z > 100 then
-				fishTrackerCanvas:Show(false)
-			else
-				if (fishNamesToAlert[currentFishName] ~= nil) then
-					fishTrackerCanvas:Show(true)
-				end
-			end
-		else
-			--Should never get here unless you are lagging
-			if (settings.ShowWait == true) then
-				F_SLOT.SetIconBackGround(fishBuffAlertIcon, api.Ability:GetBuffTooltip(6064, 1).path)
-				if (settings.ShowTimers == true) then
-					fishBuffTimeLeftLabel:SetText("WAIT")
-				end
-				if (settings.ShowBuffsOnTarget == true) then
-					F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(6064, 1).path)
-					if (settings.ShowTimers == true) then
-						fishBuffTargetTimeLeftLabel:SetText("WAIT")
-					end
-				end
-				fishBuffAlertLabel:SetText("WAIT")
-			end
+		-- Hide center alert
+		fishBuffAlertCanvas:Show(false)  -- Hide center alert
+
+		-- Ensure fish tracking frame is shown
+		if (fishNamesToAlert[currentFishName] ~= nil) then
+			fishTrackerCanvas:Show(true)
 		end
 	else 
-		--No buff we care about shown
-		if (settings.ShowWait == true) then
-			F_SLOT.SetIconBackGround(fishBuffAlertIcon, api.Ability:GetBuffTooltip(6064, 1).path)
-			if (settings.ShowTimers == true) then
-				fishBuffTimeLeftLabel:SetText("WAIT")
-			end
-			if (settings.ShowBuffsOnTarget == true) then
-				F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(6064, 1).path)
-				if (settings.ShowTimers == true) then
-					fishBuffTargetTimeLeftLabel:SetText("WAIT")
-				end
-			end
-			fishBuffAlertLabel:SetText("WAIT")
-		end
+		-- If no Buff, hide alert
+		fishBuffAlertCanvas:Show(false)
 	end
 end
 
 -- Load function to initialize the UI elements
 local function OnLoad()
-	api.Log:Info("Loading " .. fishBuddyAddon.name .. " by " .. fishBuddyAddon.author)
+	api.Log:Info("The author needs political asylum")
 
-	settings = api.GetSettings(fishBuddyAddon.name)
+	settings = api.GetSettings(fish_track.name)
 	local needsFirstSave = false
 	if (settings.ShowBuffsOnTarget == nil) then
 		settings.ShowBuffsOnTarget = false
@@ -195,7 +146,7 @@ local function OnLoad()
 	fishBuffAlertCanvas:Show(false)
 
 	fishBuffAlertLabel = fishBuffAlertCanvas:CreateChildWidget("label", "fishBuffAlertLabel", 0, true)
-	fishBuffAlertLabel:SetText("FishBuddy")
+	fishBuffAlertLabel:SetText("fish_track")
 	fishBuffAlertLabel:AddAnchor("TOPLEFT", fishBuffAlertCanvas, "TOPLEFT", 0, 22)
 	fishBuffAlertLabel.style:SetFontSize(44)
 	fishBuffAlertLabel.style:SetAlign(ALIGN_LEFT)
@@ -250,7 +201,7 @@ local function OnUnload()
 	end
 end
 
-fishBuddyAddon.OnLoad = OnLoad
-fishBuddyAddon.OnUnload = OnUnload
+fish_track.OnLoad = OnLoad
+fish_track.OnUnload = OnUnload
 
-return fishBuddyAddon
+return fish_track
