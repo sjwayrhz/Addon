@@ -2,4 +2,5 @@ hot_swap
 example_addon
 id_finder
 zeal_alert
+auto_raid
 fish_track
