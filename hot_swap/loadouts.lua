@@ -30,11 +30,14 @@ Dawnsdrop = {
 
 glider = {
     {
-        name = "Enhanced Sloth Glider Companion: Launch Height"
+        name = "Enhanced Flamefeather Glider: Speed"
     },
     {
         name = "Enhanced Skywhisper Glider: Launch Height"
-    }
+    },
+    {
+        name = "Enhanced Sloth Glider Companion: Launch Height"
+    },    
 }
 
 return {
@@ -99,32 +102,20 @@ return {
         name  = "Commerce",
         title_id = 618,
         gear = {
-            Dawnsdrop[1],
-            Dawnsdrop[2],
-            Dawnsdrop[3],
-            Dawnsdrop[4],
-            Dawnsdrop[5],
-            Dawnsdrop[6],
-            Dawnsdrop[7],
             {
                 name = "Hellkissed Nodachi"
             },
+            glider[1]
         }
     },
     {
         name = "Fishing",
         title_id = 87,
         gear = {
-            Dawnsdrop[1],
-            Dawnsdrop[2],
-            Dawnsdrop[3],
-            Dawnsdrop[4],
-            Dawnsdrop[5],
-            Dawnsdrop[6],
-            Dawnsdrop[7],
             {
                 name = "Master's Sturdy Fishing Rod"
             },
+            glider[2]
         }
     },
     {
