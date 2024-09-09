@@ -119,6 +119,18 @@ return {
         }
     },
     {
+        name = "Dawnsdrop",
+        gear = {
+            Dawnsdrop[1],
+            Dawnsdrop[2],
+            Dawnsdrop[3],
+            Dawnsdrop[4],
+            Dawnsdrop[5],
+            Dawnsdrop[6],
+            Dawnsdrop[7],
+        }
+    },
+    {
         name = "Soulforged",
         gear = {
             {
