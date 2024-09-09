@@ -55,10 +55,10 @@ return {
                 name = "Hellforged Ranger's Fists"
             },            
             {
-                name = "Dark Watcher Guards"
+                name = "Dark Warrior's Guards"
             },
             {
-                name = "Dark Watcher Belt"
+                name = "Reckless Glory Belt"
             },
             {
                 name = "Hellforged Ranger's Boots"
@@ -85,10 +85,10 @@ return {
                 name = "Hellforged Warrior's Fists"
             },            
             {
-                name = "Dark Watcher Guards"
+                name = "Dark Warrior's Guards"
             },
             {
-                name = "Dark Watcher Belt"
+                name = "Reckless Glory Belt"
             },
             {
                 name = "Hellforged Warrior's Boots"
