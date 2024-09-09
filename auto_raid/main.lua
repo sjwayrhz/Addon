@@ -1,9 +1,9 @@
 local api = require("api")
 local auxu = {
-    name = "Actually Useable X Up",
+    name = "Auto Raid X UP",
     version = "1.0",
     author = "MikeTheShadow",
-    desc = "Seriously. It's actually useable."
+    desc = "Make Raid Very Quick"
 }
 
 local recruit_message = ""
