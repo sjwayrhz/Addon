@@ -2,7 +2,7 @@
 local fish_track = {
 	name = "fish_track",
 	author = "Aac",
-	version = "0.0.2",
+	version = "0.0.5",
 	desc = "Track Buff For Fishing"
 }
 
@@ -23,7 +23,7 @@ local fishNamesToAlert = {
 }
 
 -- UI Elements
-local fishTrackerCanvas, fishBuffAlertCanvas, fishBuffAlertLabel, fishBuffAlertIcon, fishBuffTimeLeftLabel, targetFishIcon, fishBuffTargetTimeLeftLabel
+local fishTrackerCanvas, fishBuffAlertCanvas, fishBuffAlertLabel, fishBuffAlertIcon, fishBuffTimeLeftLabel, targetFishIcon
 
 -- Variables
 local previousBuffTimeRemaining = 0
@@ -50,32 +50,34 @@ local function OnUpdate()
 	if (currentFish == nil) then
 		fishTrackerCanvas:Show(false)
 		fishBuffAlertCanvas:Show(false)
+		return
+	end
+	
+	-- Update fish tracker position regardless of fish health
+	if (previousXYZ ~= (x .. "," .. y .. "," .. z)) then
+		fishTrackerCanvas:AddAnchor("BOTTOM", "UIParent", "TOPLEFT", x - 20, y - 80)
+		previousXYZ = x .. "," .. y .. "," .. z
 	end
 	
 	-- Check fish health
 	local fishHealth = api.Unit:UnitHealth("target")
 	if (fishHealth ~= nil and fishHealth <= 0) then
 		fishBuffAlertCanvas:Show(false)
-		if z < 0 or z > 100 then
-			fishTrackerCanvas:Show(false)
-		else
-			if (fishNamesToAlert[currentFishName] ~= nil) then
-				fishTrackerCanvas:Show(true)
-			end
+		if (fishNamesToAlert[currentFishName] ~= nil) then
+			fishTrackerCanvas:Show(true)
 		end
 		-- Keep the original line for dead fish icon
 		F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(5492, 1).path)
-	end
-
-	if (previousXYZ ~= (x .. "," .. y .. "," .. z)) then
-		fishTrackerCanvas:AddAnchor("BOTTOM", "UIParent", "TOPLEFT", x - 20, y - 80)
+		fishBuffTimeLeftLabel:SetText("")  -- Clear timer when fish is dead
+		return
 	end
 	
 	-- Check Buff count
 	local buffCount = api.Unit:UnitBuffCount("target")
 	if buffCount == nil or buffCount == 0 then
 		fishBuffAlertCanvas:Show(false)
-		return  -- Return if no Buff
+		fishBuffTimeLeftLabel:SetText("")  -- Clear timer when no buff
+		return
 	end
 	
 	-- Try to get Buff
@@ -90,9 +92,6 @@ local function OnUpdate()
 	-- Process Buff
 	if (selectedBuff and fishBuffIdsToAlert[selectedBuff.buff_id] ~= nil) then
 		previousFish = currentFish
-		if (previousBuffTimeRemaining ~= selectedBuff.timeLeft) then
-			previousBuffTimeRemaining = selectedBuff.timeLeft
-		end
 
 		-- Update icon
 		if (settings.ShowBuffsOnTarget == true) then
@@ -110,9 +109,23 @@ local function OnUpdate()
 		if (fishNamesToAlert[currentFishName] ~= nil) then
 			fishTrackerCanvas:Show(true)
 		end
+
+		-- Update timer
+		if (settings.ShowTimers == true) then
+			local currentTime = selectedBuff.timeLeft / 1000  -- Convert to seconds
+			if math.abs(currentTime - previousBuffTimeRemaining) > 0.01 then  -- Check if time has changed
+				fishBuffTimeLeftLabel:SetText(string.format("%.1fs", currentTime))
+				previousBuffTimeRemaining = currentTime
+			else
+				fishBuffTimeLeftLabel:SetText("")  -- Clear timer if no change
+			end
+		else
+			fishBuffTimeLeftLabel:SetText("")  -- Clear timer if ShowTimers is false
+		end
 	else 
-		-- If no Buff, hide alert
+		-- If no Buff, hide alert and clear timer
 		fishBuffAlertCanvas:Show(false)
+		fishBuffTimeLeftLabel:SetText("")
 	end
 end
 
@@ -157,16 +170,6 @@ local function OnLoad()
 	F_SLOT.ApplySlotSkin(fishBuffAlertIcon, fishBuffAlertIcon.back, SLOT_STYLE.DEFAULT)
 	fishBuffAlertIcon:AddAnchor("TOPLEFT", fishBuffAlertCanvas, "TOPLEFT", -24, -60)
 
-	fishBuffTimeLeftLabel = fishBuffAlertCanvas:CreateChildWidget("label", "fishBuffTimeLeftLabel", 0, true)
-
-	if (settings.ShowTimers == true) then
-		fishBuffTimeLeftLabel:SetText("0.0s")
-		fishBuffTimeLeftLabel:AddAnchor("CENTER", fishBuffAlertIcon, "CENTER", 0, 0)
-		fishBuffTimeLeftLabel.style:SetFontSize(18)
-		fishBuffTimeLeftLabel.style:SetAlign(ALIGN_LEFT)
-		fishBuffTimeLeftLabel.style:SetShadow(true)
-	end
-
 	fishTrackerCanvas = api.Interface:CreateEmptyWindow("fishTarget")
 	fishTrackerCanvas:Show(false)
 	
@@ -176,14 +179,13 @@ local function OnLoad()
 	F_SLOT.ApplySlotSkin(targetFishIcon, targetFishIcon.back, SLOT_STYLE.DEFAULT)
 
 	if (settings.ShowTimers == true) then
-		fishBuffTargetTimeLeftLabel = fishTrackerCanvas:CreateChildWidget("label", "fishBuffTargetTimeLeftLabel", 0, true)
-		if (settings.ShowBuffsOnTarget == true) then
-			fishBuffTargetTimeLeftLabel:SetText("0.0s")
-		end
-		fishBuffTargetTimeLeftLabel:AddAnchor("CENTER", targetFishIcon, "CENTER", 0, 0)
-		fishBuffTargetTimeLeftLabel.style:SetFontSize(18)
-		fishBuffTargetTimeLeftLabel.style:SetAlign(ALIGN_LEFT)
-		fishBuffTargetTimeLeftLabel.style:SetShadow(true)
+		fishBuffTimeLeftLabel = fishTrackerCanvas:CreateChildWidget("label", "fishBuffTimeLeftLabel", 0, true)
+		fishBuffTimeLeftLabel:SetText("")
+		fishBuffTimeLeftLabel:AddAnchor("BOTTOM", targetFishIcon, "TOP", 0, 2)  -- Position above the icon
+		fishBuffTimeLeftLabel.style:SetFontSize(18)
+		fishBuffTimeLeftLabel.style:SetAlign(ALIGN_CENTER)
+		fishBuffTimeLeftLabel.style:SetShadow(true)
+		fishBuffTimeLeftLabel.style:SetColor(0, 1, 0, 1)  -- Set text color to green (R, G, B, A)
 	end
 	
 	api.On("UPDATE", OnUpdate)
