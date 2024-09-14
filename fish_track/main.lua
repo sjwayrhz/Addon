@@ -80,7 +80,7 @@ local function OnUpdate()
         if (fishNamesToAlert[currentFishName] ~= nil) then
             fishTrackerCanvas:Show(true)
         end
-        F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(5492, 1).path)
+        F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(15782, 1).path)
         fishBuffTimeLeftLabel:SetText("Waiting")
         return
     end
@@ -131,7 +131,7 @@ local function OnUpdate()
         if (fishNamesToAlert[currentFishName] ~= nil) then
             fishTrackerCanvas:Show(true)
         end
-        F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(5492, 1).path)
+        F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(4323, 1).path)
         fishBuffTimeLeftLabel:SetText("Waiting")
     end
 end
