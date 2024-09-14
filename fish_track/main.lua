@@ -2,8 +2,8 @@
 local fish_track = {
 	name = "fish_track",
 	author = "Aac",
-	version = "0.0.5",
-	desc = "Track Buff For Fishing"
+	version = "0.0.6",
+	desc = "Track Buff For Fishing with Waiting State"
 }
 
 -- Buff IDs and corresponding alert messages
@@ -32,101 +32,108 @@ local previousFish
 local settings
 
 local function OnUpdate()
-	local currentFish = api.Unit:GetUnitId("target")
-	local currentFishName
-	if (currentFish ~= nil) then
-		currentFishName = api.Unit:GetUnitInfoById(currentFish).name
-	end
-	
-	-- Calculate target fish position
-	local x, y, z = api.Unit:GetUnitScreenPosition("target")
+    local currentFish = api.Unit:GetUnitId("target")
+    local currentFishName
+    if (currentFish ~= nil) then
+        currentFishName = api.Unit:GetUnitInfoById(currentFish).name
+    end
+    
+    -- Calculate target fish position
+    local x, y, z = api.Unit:GetUnitScreenPosition("target")
 
-	-- Hide UI when switching targets
-	if (currentFish ~= previousFish) then
-		fishTrackerCanvas:Show(false)
-		fishBuffAlertCanvas:Show(false)
-	end
-	
-	if (currentFish == nil) then
-		fishTrackerCanvas:Show(false)
-		fishBuffAlertCanvas:Show(false)
-		return
-	end
-	
-	-- Update fish tracker position regardless of fish health
-	if (previousXYZ ~= (x .. "," .. y .. "," .. z)) then
-		fishTrackerCanvas:AddAnchor("BOTTOM", "UIParent", "TOPLEFT", x - 20, y - 80)
-		previousXYZ = x .. "," .. y .. "," .. z
-	end
-	
-	-- Check fish health
-	local fishHealth = api.Unit:UnitHealth("target")
-	if (fishHealth ~= nil and fishHealth <= 0) then
-		fishBuffAlertCanvas:Show(false)
-		if (fishNamesToAlert[currentFishName] ~= nil) then
-			fishTrackerCanvas:Show(true)
-		end
-		-- Keep the original line for dead fish icon
-		F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(5492, 1).path)
-		fishBuffTimeLeftLabel:SetText("")  -- Clear timer when fish is dead
-		return
-	end
-	
-	-- Check Buff count
-	local buffCount = api.Unit:UnitBuffCount("target")
-	if buffCount == nil or buffCount == 0 then
-		fishBuffAlertCanvas:Show(false)
-		fishBuffTimeLeftLabel:SetText("")  -- Clear timer when no buff
-		return
-	end
-	
-	-- Try to get Buff
-	local selectedBuff = api.Unit:UnitBuff("target", 2)
-	if (selectedBuff == nil) then
-		selectedBuff = api.Unit:UnitBuff("target", 3)
-		if (selectedBuff == nil) then
-			selectedBuff = api.Unit:UnitBuff("target", 1)
-		end
-	end
-	
-	-- Process Buff
-	if (selectedBuff and fishBuffIdsToAlert[selectedBuff.buff_id] ~= nil) then
-		previousFish = currentFish
+    -- Hide UI when switching targets
+    if (currentFish ~= previousFish) then
+        fishTrackerCanvas:Show(false)
+        fishBuffAlertCanvas:Show(false)
+    end
+    
+    if (currentFish == nil) then
+        fishTrackerCanvas:Show(false)
+        fishBuffAlertCanvas:Show(false)
+        return
+    end
+    
+    -- Update fish tracker position regardless of fish health
+    if (previousXYZ ~= (x .. "," .. y .. "," .. z)) then
+        fishTrackerCanvas:AddAnchor("BOTTOM", "UIParent", "TOPLEFT", x - 20, y - 80)
+        previousXYZ = x .. "," .. y .. "," .. z
+    end
+    
+    -- Check fish health
+    local fishHealth = api.Unit:UnitHealth("target")
+    if (fishHealth ~= nil and fishHealth <= 0) then
+        fishBuffAlertCanvas:Show(false)
+        if (fishNamesToAlert[currentFishName] ~= nil) then
+            fishTrackerCanvas:Show(true)
+        end
+        -- Keep the original line for dead fish icon
+        F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(5492, 1).path)
+        fishBuffTimeLeftLabel:SetText("")  -- Clear timer when fish is dead
+        return
+    end
+    
+    -- Check Buff count
+    local buffCount = api.Unit:UnitBuffCount("target")
+    if buffCount == nil or buffCount == 0 then
+        -- No active buffs, show "waiting" state
+        fishBuffAlertCanvas:Show(false)
+        if (fishNamesToAlert[currentFishName] ~= nil) then
+            fishTrackerCanvas:Show(true)
+        end
+        F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(5492, 1).path)
+        fishBuffTimeLeftLabel:SetText("Waiting")
+        return
+    end
+    
+    -- Try to get Buff
+    local selectedBuff = api.Unit:UnitBuff("target", 2)
+    if (selectedBuff == nil) then
+        selectedBuff = api.Unit:UnitBuff("target", 3)
+        if (selectedBuff == nil) then
+            selectedBuff = api.Unit:UnitBuff("target", 1)
+        end
+    end
+    
+    -- Process Buff
+    if (selectedBuff and fishBuffIdsToAlert[selectedBuff.buff_id] ~= nil) then
+        previousFish = currentFish
 
-		-- Update icon
-		if (settings.ShowBuffsOnTarget == true) then
-			F_SLOT.SetIconBackGround(targetFishIcon, selectedBuff.path)
-		else
-			-- Use the fishBuffIdsToAlert icon
-			F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(selectedBuff.buff_id, 1).path)
-		end
-		F_SLOT.SetIconBackGround(fishBuffAlertIcon, selectedBuff.path)
+        -- Update icon
+        if (settings.ShowBuffsOnTarget == true) then
+            F_SLOT.SetIconBackGround(targetFishIcon, selectedBuff.path)
+        else
+            -- Use the fishBuffIdsToAlert icon
+            F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(selectedBuff.buff_id, 1).path)
+        end
+        F_SLOT.SetIconBackGround(fishBuffAlertIcon, selectedBuff.path)
 
-		-- Hide center alert
-		fishBuffAlertCanvas:Show(false)  -- Hide center alert
+        -- Hide center alert
+        fishBuffAlertCanvas:Show(false)  -- Hide center alert
 
-		-- Ensure fish tracking frame is shown
-		if (fishNamesToAlert[currentFishName] ~= nil) then
-			fishTrackerCanvas:Show(true)
-		end
+        -- Ensure fish tracking frame is shown
+        if (fishNamesToAlert[currentFishName] ~= nil) then
+            fishTrackerCanvas:Show(true)
+        end
 
-		-- Update timer
-		if (settings.ShowTimers == true) then
-			local currentTime = selectedBuff.timeLeft / 1000  -- Convert to seconds
-			if math.abs(currentTime - previousBuffTimeRemaining) > 0.01 then  -- Check if time has changed
-				fishBuffTimeLeftLabel:SetText(string.format("%.1fs", currentTime))
-				previousBuffTimeRemaining = currentTime
-			else
-				fishBuffTimeLeftLabel:SetText("")  -- Clear timer if no change
-			end
-		else
-			fishBuffTimeLeftLabel:SetText("")  -- Clear timer if ShowTimers is false
-		end
-	else 
-		-- If no Buff, hide alert and clear timer
-		fishBuffAlertCanvas:Show(false)
-		fishBuffTimeLeftLabel:SetText("")
-	end
+        -- Update timer
+        if (settings.ShowTimers == true) then
+            local currentTime = selectedBuff.timeLeft / 1000  -- Convert to seconds
+            if math.abs(currentTime - previousBuffTimeRemaining) > 0.01 then  -- Check if time has changed
+                fishBuffTimeLeftLabel:SetText(string.format("%.1fs", currentTime))
+                previousBuffTimeRemaining = currentTime
+            end
+        else
+            fishBuffTimeLeftLabel:SetText("")  -- Clear timer if ShowTimers is false
+        end
+    else 
+        -- If no relevant buff, show "waiting" state
+        fishBuffAlertCanvas:Show(false)
+        if (fishNamesToAlert[currentFishName] ~= nil) then
+            fishTrackerCanvas:Show(true)
+        end
+        F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(5492, 1).path)
+        fishBuffTimeLeftLabel:SetText("Waiting")
+    end
 end
 
 -- Load function to initialize the UI elements
