@@ -65,9 +65,16 @@ return {
             },
             {
                 name = "Hellforged Ranger's Boots"
+            },
+            {
+                name = "Hellkissed Club"
+            },
+            {
+                name = "Hellkissed Shield"
             }
         }
     },  
+    --[[
     {
         name = "Battlerage" ,
         title_id = 177,
@@ -98,6 +105,7 @@ return {
             }
         }
     }, 
+    --]]
     {
         name  = "Commerce",
         title_id = 618,
