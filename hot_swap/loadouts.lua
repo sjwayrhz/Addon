@@ -70,7 +70,8 @@ return {
                 name = "Hellkissed Club"
             },
             {
-                name = "Hellkissed Shield"
+                alternative = true,
+                name = "Hellkissed Dagger"
             }
         }
     },  
@@ -121,7 +122,7 @@ return {
         title_id = 87,
         gear = {
             {
-                name = "Master's Sturdy Fishing Rod"
+                name = "Ultimate Fishing Rod"
             },
             glider[2]
         }
