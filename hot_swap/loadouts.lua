@@ -154,6 +154,21 @@ return {
             {
                 name = "Soulforged Sabatons"
             },
+            {
+                name = "Soulforged Fists"
+            },
+            {
+                name = "Soulforged Cap"
+            },
+            {
+                name = "Soulforged Breeches"
+            },
+            {
+                name = "Soulforged Jerkin"
+            },
+            {
+                name = "Soulforged Boots"
+            },
             glider[2]
         }
     },
