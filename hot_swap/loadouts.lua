@@ -43,7 +43,7 @@ glider = {
 return {
     {
         name = "Archery" ,
-        title_id = 177,
+        title_id = 178,
         gear = {
             {
                 name = "Hellforged Ranger's Cap"
