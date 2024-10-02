@@ -38,7 +38,7 @@ local function updateLaborTimer(diff, laborPower)
     -- api.Log:Info(tostring(api.Time:GetLocalTime()) ..  " " .. tostring(msUntilLaborCap))
     -- api.Log:Info(displayTimeString(api.Time:GetLocalTime()) ..  " " .. displayTimeString(msUntilLaborCap))
     -- realityCheckWnd.laborTimer:SetText("Time to Labor Cap: " .. displayTimeString(msUntilLaborCap) .. " (" .. tostring(displayIRLTimeString(localTimeMsWhenCapped)) .. " IRL)")
-    realityCheckWnd.laborTimer:SetText("Time to Labor Cap: " .. displayTimeString(msUntilLaborCap))
+    realityCheckWnd.laborTimer:SetText("Recovery: " .. displayTimeString(msUntilLaborCap))
     if minutesUntilLaborCap > WARNING_MINUTES_ORANGE then 
         ApplyTextColor(realityCheckWnd.laborTimer, FONT_COLOR.LABORPOWER_YELLOW)
     elseif minutesUntilLaborCap < WARNING_MINUTES_ORANGE and minutesUntilLaborCap > WARNING_MINUTES_RED then 
@@ -62,7 +62,7 @@ local function OnLoad()
     laborTimer:AddAnchor("BOTTOMLEFT", "UIParent", 300, -24)
     ApplyTextColor(laborTimer, FONT_COLOR.LABORPOWER_YELLOW)
 
-    laborTimer:SetText("Time to Labor Cap: Waiting for labor tick...")
+    laborTimer:SetText("Recovery: Checking")
 
     --- Event Handlers for main window
     -- Whenever there's a chat message, see if we should pop the window up.
