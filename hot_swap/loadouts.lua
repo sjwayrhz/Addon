@@ -42,7 +42,7 @@ glider = {
 
 return {
     {
-        name = "Archery" ,
+        name = "弓箭手" ,
         title_id = 178,
         gear = {
             {
@@ -168,6 +168,13 @@ return {
             },
             {
                 name = "Soulforged Boots"
+            },
+            {
+                name = "Hellkissed Katana"
+            },
+            {
+                alternative = true,
+                name = "Hellkissed Sword"
             },
             glider[2]
         }
