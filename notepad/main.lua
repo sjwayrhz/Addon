@@ -1,4 +1,4 @@
-local showBtn, noteWindow
+local toggleBtn, noteWindow
 
 local lastSaveTime = -1
 local textEdit
@@ -12,12 +12,11 @@ local function OnUpdate(dt)
 	end
 end
 
-
 local function OnLoad()
-  showBtn = api.Interface:CreateWidget("button", "notePadShowBtn", api.rootWindow)
-	showBtn:Show(true)
-	showBtn:AddAnchor("TOPRIGHT", "UIParent", -270, 3)
-	api.Interface:ApplyButtonSkin(showBtn, BUTTON_BASIC.PLUS)
+	toggleBtn = api.Interface:CreateWidget("button", "notePadToggleBtn", api.rootWindow)
+	toggleBtn:Show(true)
+	toggleBtn:AddAnchor("TOPRIGHT", "UIParent", -270, 3)
+	api.Interface:ApplyButtonSkin(toggleBtn, BUTTON_BASIC.PLUS)
 
 	noteWindow = api.Interface:CreateWindow("notesWindow", "笔记本")
 	noteWindow:Show(false)
@@ -27,10 +26,16 @@ local function OnLoad()
 	textEdit:SetExtent(wW - 20, wH - 54)
 	textEdit:AddAnchor("TOPLEFT", noteWindow, 10, 44)
 
-	function showBtn:OnClick()
-		noteWindow:Show(true)
+	function toggleBtn:OnClick()
+		if noteWindow:IsVisible() then
+			noteWindow:Show(false)
+			api.Interface:ApplyButtonSkin(toggleBtn, BUTTON_BASIC.PLUS)
+		else
+			noteWindow:Show(true)
+			api.Interface:ApplyButtonSkin(toggleBtn, BUTTON_BASIC.MINUS)
+		end
 	end
-	showBtn:SetHandler("OnClick", showBtn.OnClick)
+	toggleBtn:SetHandler("OnClick", toggleBtn.OnClick)
 
 	local settings = api.GetSettings("notepad")
 
@@ -47,9 +52,10 @@ local function OnLoad()
 end
 
 local function OnUnload()
-	if showBtn ~= nil then
-  	showBtn:Show(false)
-  end
+	if toggleBtn ~= nil then
+		toggleBtn:Show(false)
+		toggleBtn = nil
+	end
 
 	if noteWindow ~= nil then
 		noteWindow:Show(false)
@@ -57,12 +63,11 @@ local function OnUnload()
 	end
 end
 
-
 return {
 	name = "Notepad",
 	desc = "A simple notepad",
-	version = "1.0",
-	author = "Aguru",
+	version = "0.1",
+	author = "Usb",
 	OnLoad = OnLoad,
 	OnUnload = OnUnload
 }
