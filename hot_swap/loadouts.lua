@@ -72,7 +72,10 @@ return {
             {
                 alternative = true,
                 name = "Hellkissed Dagger"
-            }
+            },
+            {
+                name = "Darukissed Flute"
+            },
         }
     },  
     --[[
@@ -176,7 +179,10 @@ return {
                 alternative = true,
                 name = "Hellkissed Sword"
             },
-            glider[2]
+            glider[2],
+            {
+                name = "Fortune Pipe"
+            },
         }
     },
     {
@@ -197,7 +203,10 @@ return {
 			{
 				name = "Lullaby Pajama Mittens",
 			},
-            glider[1]
+            glider[1],
+            {
+                name = "Fortune Pipe"
+            },
         }
     }
 }
