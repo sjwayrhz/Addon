@@ -27,13 +27,15 @@ function DISPLAY.CreateDisplay(settings)
     Canvas.bg:AddAnchor("TOPLEFT", Canvas, 0, 0)
     Canvas.bg:AddAnchor("BOTTOMRIGHT", Canvas, 0, 0)
 
-    if canvas_x ~= 500 and canvas_y ~= 20 then
-        Canvas:AddAnchor("TOPLEFT", "UIParent", canvas_x, canvas_y)
-    else
-        Canvas:AddAnchor("LEFT", "UIParent", canvas_x, canvas_y)
-    end
+    -- 应用位置设置
+    Canvas:AddAnchor("TOPLEFT", "UIParent", canvas_x, canvas_y)
 
-    Canvas:SetExtent(200, 35 + (#notepads * 50))
+    -- 设置窗口大小
+    if settings.hidden then
+        Canvas:SetExtent(200, 35) -- 隐藏状态只显示标题部分
+    else
+        Canvas:SetExtent(200, 35 + (#notepads * 50))
+    end
     Canvas:Show(true)
 
     function Canvas:OnDragStart(arg)
@@ -44,11 +46,12 @@ function DISPLAY.CreateDisplay(settings)
         end
     end
     Canvas:SetHandler("OnDragStart", Canvas.OnDragStart)
-    
+
     function Canvas:OnDragStop()
         local current_x, current_y = Canvas:GetOffset()
         settings.x = current_x
         settings.y = current_y
+        settings.hidden = settings.hidden or false -- 确保 hidden 变量存在
         api.SaveSettings()
         Canvas:StopMovingOrSizing()
         api.Cursor:ClearCursor()
@@ -56,7 +59,7 @@ function DISPLAY.CreateDisplay(settings)
     Canvas:SetHandler("OnDragStop", Canvas.OnDragStop)
     Canvas:RegisterForDrag("LeftButton")
 
-    -- 创建切换按钮并设置为相对位置
+    -- 创建切换按钮
     toggleBtn = api.Interface:CreateWidget("button", "notepadToggleBtn", Canvas)
     toggleBtn:Show(true)
     toggleBtn:AddAnchor("TOPRIGHT", Canvas, -10, 5)
