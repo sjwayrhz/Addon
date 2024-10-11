@@ -2,9 +2,10 @@ local api = require("api")
 
 -- 定义笔记本配置
 local notepads = {
-    {name = "日常笔记", buttonText = "日常"},
-    {name = "工作笔记", buttonText = "工作"},
-    {name = "学习笔记", buttonText = "学习"}
+    {name = "notebook-01", buttonText = "Author"},
+    {name = "notebook-02", buttonText = "Need"},
+    {name = "notebook-03", buttonText = "Political"},
+    {name = "notebook-04", buttonText = "Asylum"}
 }
 
 local DISPLAY = {}
@@ -25,21 +26,21 @@ function DISPLAY.CreateDisplay(settings)
     Canvas.bg:SetColor(0, 0, 0, 0.5)
     Canvas.bg:AddAnchor("TOPLEFT", Canvas, 0, 0)
     Canvas.bg:AddAnchor("BOTTOMRIGHT", Canvas, 0, 0)
-    
+
     if canvas_x ~= 500 and canvas_y ~= 20 then
         Canvas:AddAnchor("TOPLEFT", "UIParent", canvas_x, canvas_y)
     else
         Canvas:AddAnchor("LEFT", "UIParent", canvas_x, canvas_y)
     end
-    
+
     Canvas:SetExtent(200, 35 + (#notepads * 50))
-    Canvas:Show(not settings.hidden)
+    Canvas:Show(true)
 
     function Canvas:OnDragStart(arg)
         if arg == "LeftButton" and api.Input:IsShiftKeyDown() then
-          Canvas:StartMoving()
-          api.Cursor:ClearCursor()
-          api.Cursor:SetCursorImage(CURSOR_PATH.MOVE, 0, 0)
+            Canvas:StartMoving()
+            api.Cursor:ClearCursor()
+            api.Cursor:SetCursorImage(CURSOR_PATH.MOVE, 0, 0)
         end
     end
     Canvas:SetHandler("OnDragStart", Canvas.OnDragStart)
@@ -54,27 +55,40 @@ function DISPLAY.CreateDisplay(settings)
     end
     Canvas:SetHandler("OnDragStop", Canvas.OnDragStop)
     Canvas:RegisterForDrag("LeftButton")
-    
-    -- 创建切换按钮
-    toggleBtn = api.Interface:CreateWidget("button", "notepadToggleBtn", api.rootWindow)
+
+    -- 创建切换按钮并设置为相对位置
+    toggleBtn = api.Interface:CreateWidget("button", "notepadToggleBtn", Canvas)
     toggleBtn:Show(true)
-    toggleBtn:AddAnchor("TOPRIGHT", "UIParent", -270, 3)
-    api.Interface:ApplyButtonSkin(toggleBtn, settings.hidden and BUTTON_BASIC.PLUS or BUTTON_BASIC.MINUS)
+    toggleBtn:AddAnchor("TOPRIGHT", Canvas, -10, 5)
+    api.Interface:ApplyButtonSkin(toggleBtn, BUTTON_BASIC.MINUS)
 
     function toggleBtn:OnClick()
-        if Canvas:IsVisible() then
-            Canvas:Show(false)
+        if Canvas:GetHeight() > 35 then
+            -- 折叠视窗
+            Canvas:SetExtent(200, 35) -- 折叠后只保留标题部分
             api.Interface:ApplyButtonSkin(toggleBtn, BUTTON_BASIC.PLUS)
-            settings.hidden = true
+            toggleBtn:SetText("+") -- 更新按钮文本为加号
+
+            -- 隐藏笔记按钮
+            for _, button in ipairs(buttons) do
+                button:Show(false)
+            end
         else
-            Canvas:Show(true)
+            -- 展开视窗
+            Canvas:SetExtent(200, 35 + (#notepads * 50))
             api.Interface:ApplyButtonSkin(toggleBtn, BUTTON_BASIC.MINUS)
-            settings.hidden = false
+            toggleBtn:SetText("-") -- 更新按钮文本为减号
+
+            -- 显示笔记按钮
+            for _, button in ipairs(buttons) do
+                button:Show(true)
+            end
         end
+        settings.hidden = not settings.hidden
         api.SaveSettings()
     end
     toggleBtn:SetHandler("OnClick", toggleBtn.OnClick)
-    
+
     return Canvas
 end
 
@@ -217,9 +231,9 @@ end
 
 return {
     name = "Multi-Notepad",
-    desc = "A multi-notebook notepad plugin with toggle functionality",
-    version = "0.2.1",
-    author = "Usb (modified)",
+    desc = "Multiple notebooks help you remember life",
+    version = "0.1",
+    author = "Usb",
     OnLoad = OnLoad,
     OnUnload = OnUnload,
     OnUpdate = OnUpdate
