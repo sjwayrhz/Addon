@@ -6,4 +6,4 @@ auto_raid
 reality_check
 fish_track
 korean_combat_text
-notepad
+multi_notepad
