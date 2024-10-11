@@ -121,10 +121,14 @@ function DISPLAY.createNoteWindow(notepad)
     local noteWindow = api.Interface:CreateWindow(notepad.name .. "Window", notepad.name)
     noteWindow:Show(false)
 
-    local textEdit = W_CTRL.CreateMultiLineEdit(notepad.name .. "Edit", noteWindow)
     local wW, wH = noteWindow:GetExtent()
-    textEdit:SetExtent(wW - 20, wH - 54)
-    textEdit:AddAnchor("TOPLEFT", noteWindow, 10, 44)
+
+    -- 将窗口宽度和高度都设为原来的一半
+    noteWindow:SetExtent(wW / 2, wH / 2)
+
+    local textEdit = W_CTRL.CreateMultiLineEdit(notepad.name .. "Edit", noteWindow)
+    textEdit:SetExtent((wW / 2) - 20, (wH / 2) - 54) -- 更新文本框高度和宽度
+    textEdit:AddAnchor("TOPLEFT", noteWindow, 10, 40)
 
     noteWindows[notepad.name] = noteWindow
     textEdits[notepad.name] = textEdit
