@@ -31,11 +31,29 @@ local gear_sets = {
             {name = "Hellforged Ranger's Boots"},
             {name = "Hellkissed Club"},
             {alternative = true, name = "Hellkissed Dagger"},
+            {name = "Hellkissed Bow"},
             {name = "Darukissed Flute"},
         }
     },  
     {
-        name  = "Commerce",
+        name = "刺客",
+        -- title_id = 178,
+        gear = {
+            {name = "Hellforged Warrior's Cap"},  
+            {name = "Hellforged Warrior's Jerkin"}, 
+            {name = "Hellforged Warrior's Breeches"}, 
+            {name = "Hellforged Warrior's Belt"},            
+            {name = "Hellforged Warrior's Guards"},
+            {name = "Hellforged Warrior's Fists"},
+            {name = "Hellforged Warrior's Boots"},
+            {name = "Hellkissed Katana"},
+            {alternative = true, name = "Hellkissed Sword"},
+            {name = "Hellkissed Bow"},
+            {name = "Darukissed Flute"},
+        }
+    }, 
+    {
+        name  = "貿易",
         title_id = 618,
         gear = {
             {name = "Hellkissed Nodachi"},
@@ -43,7 +61,7 @@ local gear_sets = {
         }
     },
     {
-        name = "Fishing",
+        name = "釣魚",
         title_id = 87,
         gear = {
             {name = "Ultimate Fishing Rod"},
