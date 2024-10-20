@@ -62,7 +62,7 @@ local gear_sets = {
     },
     {
         name = "釣魚",
-        title_id = 87,
+        title_id = 611,
         gear = {
             {name = "Ultimate Fishing Rod"},
             glider[2]
