@@ -20,7 +20,7 @@ local glider = {
 local gear_sets = {
     {
         name = "弓箭手",
-        title_id = 178,
+        title_id = 179,
         gear = {
             {name = "Hellforged Ranger's Cap"},  
             {name = "Hellforged Ranger's Jerkin"}, 
