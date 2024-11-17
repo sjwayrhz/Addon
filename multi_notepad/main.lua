@@ -27,17 +27,16 @@ function DISPLAY.CreateDisplay(settings)
     Canvas.bg:AddAnchor("TOPLEFT", Canvas, 0, 0)
     Canvas.bg:AddAnchor("BOTTOMRIGHT", Canvas, 0, 0)
 
-    -- 应用位置设置
-    Canvas:AddAnchor("TOPLEFT", "UIParent", canvas_x, canvas_y)
-
-    -- 设置窗口大小
-    if settings.hidden then
-        Canvas:SetExtent(200, 35) -- 隐藏状态只显示标题部分
+    if canvas_x ~= 500 and canvas_y ~= 20 then
+        Canvas:AddAnchor("TOPLEFT", "UIParent", canvas_x, canvas_y)
     else
-        Canvas:SetExtent(200, 35 + (#notepads * 50))
+        Canvas:AddAnchor("LEFT", "UIParent", canvas_x, canvas_y)
     end
+
+    Canvas:SetExtent(200, 35 + (#notepads * 50))
     Canvas:Show(true)
 
+    -- 修复拖动功能
     function Canvas:OnDragStart(arg)
         if arg == "LeftButton" and api.Input:IsShiftKeyDown() then
             Canvas:StartMoving()
@@ -45,21 +44,29 @@ function DISPLAY.CreateDisplay(settings)
             api.Cursor:SetCursorImage(CURSOR_PATH.MOVE, 0, 0)
         end
     end
-    Canvas:SetHandler("OnDragStart", Canvas.OnDragStart)
-
+    
     function Canvas:OnDragStop()
         local current_x, current_y = Canvas:GetOffset()
         settings.x = current_x
         settings.y = current_y
-        settings.hidden = settings.hidden or false -- 确保 hidden 变量存在
         api.SaveSettings()
         Canvas:StopMovingOrSizing()
         api.Cursor:ClearCursor()
     end
-    Canvas:SetHandler("OnDragStop", Canvas.OnDragStop)
-    Canvas:RegisterForDrag("LeftButton")
 
-    -- 创建切换按钮
+    -- 正确设置拖动事件处理
+    Canvas:SetHandler("OnDragStart", Canvas.OnDragStart)
+    Canvas:SetHandler("OnDragStop", Canvas.OnDragStop)
+    Canvas:SetHandler("OnMouseDown", function(self, arg)
+        if arg == "LeftButton" and api.Input:IsShiftKeyDown() then
+            self:StartMoving()
+        end
+    end)
+    Canvas:SetHandler("OnMouseUp", function(self)
+        self:StopMovingOrSizing()
+    end)
+
+    -- 创建切换按钮并设置为相对位置
     toggleBtn = api.Interface:CreateWidget("button", "notepadToggleBtn", Canvas)
     toggleBtn:Show(true)
     toggleBtn:AddAnchor("TOPRIGHT", Canvas, -10, 5)
@@ -68,9 +75,9 @@ function DISPLAY.CreateDisplay(settings)
     function toggleBtn:OnClick()
         if Canvas:GetHeight() > 35 then
             -- 折叠视窗
-            Canvas:SetExtent(200, 35) -- 折叠后只保留标题部分
+            Canvas:SetExtent(200, 35)
             api.Interface:ApplyButtonSkin(toggleBtn, BUTTON_BASIC.PLUS)
-            toggleBtn:SetText("+") -- 更新按钮文本为加号
+            toggleBtn:SetText("+")
 
             -- 隐藏笔记按钮
             for _, button in ipairs(buttons) do
@@ -80,7 +87,7 @@ function DISPLAY.CreateDisplay(settings)
             -- 展开视窗
             Canvas:SetExtent(200, 35 + (#notepads * 50))
             api.Interface:ApplyButtonSkin(toggleBtn, BUTTON_BASIC.MINUS)
-            toggleBtn:SetText("-") -- 更新按钮文本为减号
+            toggleBtn:SetText("-")
 
             -- 显示笔记按钮
             for _, button in ipairs(buttons) do
@@ -96,7 +103,7 @@ function DISPLAY.CreateDisplay(settings)
 end
 
 function DISPLAY.createButton(Canvas, notepad, x, y, settings)
-    local button = Canvas:CreateChildWidget("button", notepad.name .. "_button", 0, true)
+    local button = api.Interface:CreateWidget("button", notepad.name .. "_button", Canvas)
     
     table.insert(buttons, button)
     
@@ -126,11 +133,10 @@ function DISPLAY.createNoteWindow(notepad)
 
     local wW, wH = noteWindow:GetExtent()
 
-    -- 将窗口宽度和高度都设为原来的一半
     noteWindow:SetExtent(wW / 2, wH / 2)
 
     local textEdit = W_CTRL.CreateMultiLineEdit(notepad.name .. "Edit", noteWindow)
-    textEdit:SetExtent((wW / 2) - 20, (wH / 2) - 54) -- 更新文本框高度和宽度
+    textEdit:SetExtent((wW / 2) - 20, (wH / 2) - 54)
     textEdit:AddAnchor("TOPLEFT", noteWindow, 10, 40)
 
     noteWindows[notepad.name] = noteWindow
@@ -141,16 +147,7 @@ function DISPLAY.createNoteWindow(notepad)
     end
     noteWindow:SetHandler("OnClose", noteWindow.OnClose)
 
-    local settings = api.GetSettings("notepad_" .. notepad.name)
-    local message = settings.text or ""
-    textEdit:SetText(message)
-
-    function textEdit:OnTextChanged()
-        lastSaveTimes[notepad.name] = api.Time:GetUiMsec() + 3000
-    end
-    textEdit:SetHandler("OnTextChanged", textEdit.OnTextChanged)
-
-    -- 添加拖动功能
+    -- 修复拖动功能
     function noteWindow:OnDragStart(arg)
         if arg == "LeftButton" and api.Input:IsShiftKeyDown() then
             noteWindow:StartMoving()
@@ -158,7 +155,6 @@ function DISPLAY.createNoteWindow(notepad)
             api.Cursor:SetCursorImage(CURSOR_PATH.MOVE, 0, 0)
         end
     end
-    noteWindow:SetHandler("OnDragStart", noteWindow.OnDragStart)
     
     function noteWindow:OnDragStop()
         local current_x, current_y = noteWindow:GetOffset()
@@ -168,8 +164,26 @@ function DISPLAY.createNoteWindow(notepad)
         noteWindow:StopMovingOrSizing()
         api.Cursor:ClearCursor()
     end
+
+    noteWindow:SetHandler("OnDragStart", noteWindow.OnDragStart)
     noteWindow:SetHandler("OnDragStop", noteWindow.OnDragStop)
-    noteWindow:RegisterForDrag("LeftButton")
+    noteWindow:SetHandler("OnMouseDown", function(self, arg)
+        if arg == "LeftButton" and api.Input:IsShiftKeyDown() then
+            self:StartMoving()
+        end
+    end)
+    noteWindow:SetHandler("OnMouseUp", function(self)
+        self:StopMovingOrSizing()
+    end)
+
+    local settings = api.GetSettings("notepad_" .. notepad.name)
+    local message = settings.text or ""
+    textEdit:SetText(message)
+
+    function textEdit:OnTextChanged()
+        lastSaveTimes[notepad.name] = api.Time:GetUiMsec() + 3000
+    end
+    textEdit:SetHandler("OnTextChanged", textEdit.OnTextChanged)
 
     -- 设置保存的位置
     if settings.x and settings.y then
