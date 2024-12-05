@@ -4,3 +4,5 @@ reality_check
 fish_track
 example_addon
 multi_notepad
+id_finder
+family_quest

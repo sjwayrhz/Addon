@@ -2,6 +2,15 @@
     reality_check = {
         enabled = true,
     },
+    auto_raid = {
+        blocklist = {
+        },
+        hide_cancel = false,
+        enabled = true,
+    },
+    id_finder = {
+        enabled = false,
+    },
     fish_track = {
         enabled = true,
         ShowWait = true,
@@ -14,8 +23,8 @@
         show_creation_window = true,
         settings_x = 424,
         y = 11,
-        hidden = true,
         settings_y = 267,
+        hidden = true,
         gear_sets = {
             {
                 name = "睡衣",
@@ -73,100 +82,37 @@
                         name = "Radiant Dawnsdrop Boots",
                         grade = 2,
                     },
-                },
-            },
-            {
-                gear = {
                     {
-                        name = "Hellforged Ranger's Cap",
-                        grade = 7,
-                    },
-                    {
-                        name = "Hellforged Ranger's Jerkin",
-                        grade = 7,
-                    },
-                    {
-                        name = "Reckless Glory Belt",
-                        grade = 7,
-                    },
-                    {
-                        name = "Dark Warrior's Guards",
-                        grade = 7,
-                    },
-                    {
-                        name = "Hellforged Ranger's Fists",
-                        grade = 7,
-                    },
-                    {
-                        name = "Delphinad Flaming Windsong Cloak",
-                        grade = 9,
-                    },
-                    {
-                        name = "Hellforged Ranger's Breeches",
-                        grade = 7,
-                    },
-                    {
-                        name = "Hellforged Ranger's Boots",
-                        grade = 7,
-                    },
-                    {
-                        name = "Ranged Black Cat Undergarments",
-                        grade = 5,
-                    },
-                    {
-                        name = "Amethyst Evernight Necklace (Rank 7)",
-                        grade = 5,
-                    },
-                    {
-                        name = "Epherium Gale Earring",
+                        name = "Delphinad Vocational Hood",
                         grade = 2,
                     },
                     {
-                        alternative = true,
-                        grade = 5,
-                        name = "Magnificent Gale Earring",
+                        name = "Delphinad Vocational Shirt",
+                        grade = 2,
                     },
                     {
-                        name = "Flawless Dream Ring",
-                        grade = 7,
+                        name = "Delphinad Vocational Sash",
+                        grade = 2,
                     },
                     {
-                        name = "Hellkissed Katana",
-                        grade = 7,
+                        name = "Delphinad Vocational Sleeves",
+                        grade = 2,
                     },
                     {
-                        alternative = true,
-                        grade = 7,
-                        name = "Hellkissed Dagger",
-                    },
-                    {
-                        name = "Hellkissed Bow",
-                        grade = 7,
-                    },
-                    {
-                        name = "Darukissed Flute",
-                        grade = 7,
-                    },
-                    {
-                        name = "Ranged Basic Costume",
+                        name = "Delphinad Vocational Gloves",
                         grade = 3,
                     },
-                },
-                title_id = 180,
-                name = "弓箭手",
-            },
-            {
-                gear = {
                     {
-                        name = "Ultimate Fishing Rod",
-                        grade = 6,
+                        name = "Delphinad Vocational Pants",
+                        grade = 2,
+                    },
+                    {
+                        name = "Delphinad Vocational Shoes",
+                        grade = 2,
                     },
                 },
-                title_id = 611,
-                name = "钓鱼",
             },
             {
-                name = "刺客",
                 gear = {
                     {
                         name = "Hellforged Warrior's Cap",
@@ -189,10 +135,6 @@
                         grade = 7,
                     },
                     {
-                        name = "Epherium Arrowflash Cloak",
-                        grade = 0,
-                    },
-                    {
                         name = "Hellforged Warrior's Breeches",
                         grade = 7,
                     },
@@ -201,66 +143,91 @@
                         grade = 7,
                     },
                     {
-                        name = "Melee Black Cat Undergarments",
-                        grade = 2,
-                    },
-                    {
-                        name = "Jade Evernight Necklace (Rank 8)",
-                        grade = 6,
-                    },
-                    {
-                        name = "Disciple's Melee Earrings",
-                        grade = 5,
-                    },
-                    {
-                        alternative = true,
-                        grade = 5,
-                        name = "Disciple's Melee Earrings",
-                    },
-                    {
-                        name = "Disciple's Melee Ring",
-                        grade = 5,
-                    },
-                    {
-                        alternative = true,
-                        grade = 5,
-                        name = "Disciple's Melee Ring",
-                    },
-                    {
-                        name = "Hellkissed Katana",
+                        name = "Hellforged Ranger's Cap",
                         grade = 7,
                     },
                     {
-                        alternative = true,
-                        grade = 7,
-                        name = "Hellkissed Sword",
-                    },
-                    {
-                        name = "Hellkissed Bow",
+                        name = "Hellforged Ranger's Jerkin",
                         grade = 7,
                     },
                     {
-                        name = "Darukissed Flute",
+                        name = "Reckless Glory Belt",
                         grade = 7,
                     },
                     {
-                        name = "Arrogant Duelist Costume",
+                        name = "Dark Warrior's Guards",
+                        grade = 7,
+                    },
+                    {
+                        name = "Hellforged Ranger's Fists",
+                        grade = 7,
+                    },
+                    {
+                        name = "Hellforged Ranger's Breeches",
+                        grade = 7,
+                    },
+                    {
+                        name = "Hellforged Ranger's Boots",
+                        grade = 7,
+                    },
+                    {
+                        name = "Hellforged Hood",
+                        grade = 7,
+                    },
+                    {
+                        name = "Hellforged Shirt",
+                        grade = 7,
+                    },
+                    {
+                        name = "Cruel Glory Sash",
+                        grade = 0,
+                    },
+                    {
+                        name = "Shadowsong Sleeves",
                         grade = 3,
                     },
+                    {
+                        name = "Hellforged Gloves",
+                        grade = 7,
+                    },
+                    {
+                        name = "Hellforged Pants",
+                        grade = 7,
+                    },
+                    {
+                        name = "Hellforged Shoes",
+                        grade = 7,
+                    },
+                    {
+                        name = "Croon of Shadowplay",
+                        grade = 7,
+                    },
                 },
+                title_id = 180,
+                name = "Armor",
+            },
+            {
+                gear = {
+                    {
+                        name = "Ultimate Fishing Rod",
+                        grade = 6,
+                    },
+                },
+                title_id = 611,
+                name = "钓鱼",
             },
         },
     },
     example_addon = {
-        enabled = true,
+        enabled = false,
     },
     multi_notepad = {
-        enabled = true,
+        enabled = false,
     },
-    auto_raid = {
-        blocklist = {
-        },
-        hide_cancel = false,
-        enabled = true,
+    family_quest = {
+        enabled = false,
+        ShowWait = true,
+        ShowBuffsOnTarget = false,
+        ShowTimers = true,
     },
 }
