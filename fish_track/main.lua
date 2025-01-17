@@ -1,7 +1,7 @@
 -- Addon Information
 local fish_track = {
 	name = "fish_track",
-	author = "Aac",
+	author = "Usb",
 	version = "1.0",
 	desc = "Track Buff For Fishing"
 }
@@ -67,7 +67,7 @@ local function OnUpdate()
             fishTrackerCanvas:Show(true)
         end
         -- Keep the original line for dead fish icon
-        F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(6851, 1).path)
+        F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(4832, 1).path)
         fishBuffTimeLeftLabel:SetText("")  -- Clear timer when fish is dead
         return
     end
@@ -80,11 +80,11 @@ local function OnUpdate()
         if (fishNamesToAlert[currentFishName] ~= nil) then
             fishTrackerCanvas:Show(true)
         end
-        F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(15782, 1).path)
+        F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(4832, 1).path)
         fishBuffTimeLeftLabel:SetText("Waiting")
         return
     end
-    
+
     -- Try to get Buff
     local selectedBuff = api.Unit:UnitBuff("target", 2)
     if (selectedBuff == nil) then
@@ -131,7 +131,7 @@ local function OnUpdate()
         if (fishNamesToAlert[currentFishName] ~= nil) then
             fishTrackerCanvas:Show(true)
         end
-        F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(9000001, 1).path)
+        F_SLOT.SetIconBackGround(targetFishIcon, api.Ability:GetBuffTooltip(3710, 1).path)
         fishBuffTimeLeftLabel:SetText("Waiting")
     end
 end

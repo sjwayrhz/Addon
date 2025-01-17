@@ -159,6 +159,10 @@
                         grade = 7,
                     },
                     {
+                        name = "Auroria Wildborn Archery Guards",
+                        grade = 7,
+                    },
+                    {
                         name = "Hellforged Ranger's Fists",
                         grade = 7,
                     },
@@ -199,22 +203,46 @@
                         grade = 7,
                     },
                     {
+                        name = "Hellforged Priest's Hood",
+                        grade = 7,
+                    },
+                    {
+                        name = "Hellforged Priest's Shirt",
+                        grade = 7,
+                    },
+                    {
+                        name = "Hellforged Priest's Gloves",
+                        grade = 7,
+                    },
+                    {
+                        name = "Hellforged Priest's Pants",
+                        grade = 7,
+                    },
+                    {
+                        name = "Hellforged Priest's Shoes",
+                        grade = 7,
+                    },
+                    {
                         name = "Croon of Shadowplay",
                         grade = 7,
                     },
                 },
                 title_id = 180,
-                name = "Armor",
+                name = "防具",
             },
             {
                 gear = {
                     {
-                        name = "Ultimate Fishing Rod",
-                        grade = 6,
+                        name = "Granbleu's Dive Helmet",
+                        grade = 0,
+                    },
+                    {
+                        name = "Baktehan's Swimfins",
+                        grade = 0,
                     },
                 },
-                title_id = 611,
-                name = "钓鱼",
+                title_id = 181,
+                name = "游泳",
             },
         },
     },
