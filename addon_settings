@@ -1,22 +1,4 @@
 {
-    reality_check = {
-        enabled = true,
-    },
-    auto_raid = {
-        blocklist = {
-        },
-        hide_cancel = false,
-        enabled = true,
-    },
-    id_finder = {
-        enabled = false,
-    },
-    fish_track = {
-        enabled = true,
-        ShowWait = true,
-        ShowBuffsOnTarget = false,
-        ShowTimers = true,
-    },
     hot_swap = {
         enabled = true,
         x = 319,
@@ -246,14 +228,17 @@
             },
         },
     },
-    example_addon = {
-        enabled = false,
+    auto_raid = {
+        blocklist = {
+        },
+        hide_cancel = false,
+        enabled = true,
     },
-    multi_notepad = {
-        enabled = false,
+    reality_check = {
+        enabled = true,
     },
-    family_quest = {
-        enabled = false,
+    fish_track = {
+        enabled = true,
         ShowWait = true,
         ShowBuffsOnTarget = false,
         ShowTimers = true,
