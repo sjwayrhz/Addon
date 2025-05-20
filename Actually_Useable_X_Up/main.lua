@@ -1,9 +1,9 @@
 local api = require("api")
-local auto_raid = {
-    name = "Auto Raid",
-    version = "1.0",
-    author = "Aac",
-    desc = "Used for Auto Invite To Raid"
+local auxu = {
+    name = "Actually Useable X Up",
+    version = "2.0",
+    author = "MikeTheShadow",
+    desc = "It's actually useable."
 }
 
 local blocklist = {}
@@ -14,16 +14,20 @@ local recruit_textfield
 
 local recruit_button
 
+local filter_dropdown
+
 local is_recruiting = false
 
 local raid_manager
 
 local RecruitCanvas
 
+local dms_only
+
 local function OnLoad()
 
 
-    local settings = api.GetSettings("auto_raid")
+    local settings = api.GetSettings("auxu")
 
     if settings.blocklist == nil then
         settings.blocklist = {}
@@ -72,16 +76,32 @@ local function OnLoad()
 
     recruit_button = raid_manager:CreateChildWidget("button", "raid_setup_button", 0, true)
     recruit_button:SetExtent(300, 60)
-    recruit_button:AddAnchor("LEFT", raid_manager, 10, 140)
+    recruit_button:AddAnchor("LEFT", raid_manager, 20, 140)
     recruit_button:SetText("Start Recruiting")
     api.Interface:ApplyButtonSkin(recruit_button, BUTTON_BASIC.DEFAULT)
 
     recruit_textfield = W_CTRL.CreateEdit("recruit_message", raid_manager)
-    recruit_textfield:AddAnchor("LEFT", raid_manager, 135, 140)
-    recruit_textfield:SetExtent(120, 30)
+    recruit_textfield:AddAnchor("LEFT", raid_manager, 131, 140)
+    recruit_textfield:SetExtent(150, 30)
     recruit_textfield:SetMaxTextLength(64)
-    recruit_textfield:CreateGuideText("X AEGIS")
+    recruit_textfield:CreateGuideText("X CR")
     recruit_textfield:Show(true)
+
+    -- Recruit filtering
+    filter_dropdown = api.Interface:CreateComboBox(raid_manager)
+    filter_dropdown:SetExtent(100, 30)
+    filter_dropdown:AddAnchor("LEFT", raid_manager, 285, 140)
+    filter_dropdown.dropdownItem =  {"Equals","Contains","Starts With"}
+    filter_dropdown:Select(1)
+    filter_dropdown:Show(true)
+
+    -- DMs only
+    dms_only = api.Interface:CreateComboBox(raid_manager)
+    dms_only:SetExtent(100, 30)
+    dms_only:AddAnchor("LEFT", raid_manager, 390, 140)
+    dms_only.dropdownItem = {"All Chats","Whispers","Guild"}
+    dms_only:Select(1)
+    dms_only:Show(true)
 
     recruit_button:SetHandler("OnClick", function()
         if is_recruiting then
@@ -120,6 +140,8 @@ local function OnUnload()
         recruit_textfield:Show(false)
         raid_manager:SetExtent(canvas_width,395)
         RecruitCanvas:Show(false)
+        filter_dropdown:Show(false)
+        dms_only:Show(false)
     end
 end
 
@@ -127,29 +149,26 @@ end
 
 local show_settings = true
 
-auto_raid.OnLoad = OnLoad
-auto_raid.OnUnload = OnUnload
+auxu.OnLoad = OnLoad
+auxu.OnUnload = OnUnload
 
 local function ResetRecruit()
     is_recruiting = false
     recruit_button:SetText("Start Recruiting")
     recruit_textfield:Enable(true)
+
 end
 
-local function OnChatMessage(_, speakerId, _, speakerName, message)
+local function OnChatMessage(channelId, speakerId,_, speakerName, message)
 
-    if not speakerName or recruit_message == "" or not is_recruiting then
+    message = message:lower()
+
+    filter_selection = filter_dropdown.selctedIndex
+
+    is_null = string.find(message, recruit_message, 1, true) == nil
+
+    if not speakerName or recruit_message == "" then
         return
-    end
-
-    is_recruiting = false
-
-    for i = 1, 50 do
-        team_member = api.Unit:GetUnitInfoById("team" .. i)
-        if team_member == nil then
-            is_recruiting = true
-            break
-        end
     end
 
     if not is_recruiting then
@@ -157,7 +176,27 @@ local function OnChatMessage(_, speakerId, _, speakerName, message)
         return
     end
 
-    if string.lower(message) == recruit_message then
+    -- Filter check
+
+    filter_selection = filter_dropdown.selctedIndex
+
+    if filter_selection == 1 and message ~= recruit_message then
+        return
+    elseif filter_selection == 2 and string.find(message, recruit_message, 1, true) == nil then
+        return
+    elseif filter_selection == 3 and string.sub(message, 1, #recruit_message) ~= recruit_message then
+        return
+    end
+
+    recruit_method = dms_only.selctedIndex
+
+    if recruit_method == 1 then
+        api.Log:Info(("Inviting " .. speakerName))
+        api.Team:InviteToTeam(speakerName, false)
+    elseif recruit_method == 2 and channelId == -3 then
+        api.Log:Info(("Inviting " .. speakerName))
+        api.Team:InviteToTeam(speakerName, false)
+    elseif recruit_method == 3 and channelId == 7 then
         api.Log:Info(("Inviting " .. speakerName))
         api.Team:InviteToTeam(speakerName, false)
     end
@@ -165,4 +204,4 @@ end
 
 api.On("CHAT_MESSAGE", OnChatMessage)
 
-return auto_raid
+return auxu

@@ -1,4 +1,18 @@
 {
+    reality_check = {
+        enabled = true,
+        isMuted = false,
+        whisperSound = "store",
+    },
+    cant_read = {
+        enabled = true,
+    },
+    fish_track = {
+        enabled = true,
+        ShowWait = true,
+        ShowBuffsOnTarget = false,
+        ShowTimers = true,
+    },
     hot_swap = {
         enabled = true,
         x = 319,
@@ -9,7 +23,7 @@
         hidden = true,
         gear_sets = {
             {
-                name = "睡衣",
+                name = "Sleep",
                 gear = {
                     {
                         name = "Lullaby Pajama Top",
@@ -29,6 +43,10 @@
                     },
                     {
                         name = "Fortune Pipe",
+                        grade = 0,
+                    },
+                    {
+                        name = "Sacred Echo",
                         grade = 0,
                     },
                 },
@@ -91,6 +109,38 @@
                     {
                         name = "Delphinad Vocational Shoes",
                         grade = 2,
+                    },
+                    {
+                        name = "Delphinad Vocational Hood",
+                        grade = 7,
+                    },
+                    {
+                        name = "Delphinad Vocational Shirt",
+                        grade = 7,
+                    },
+                    {
+                        name = "Delphinad Vocational Sash",
+                        grade = 7,
+                    },
+                    {
+                        name = "Delphinad Vocational Sleeves",
+                        grade = 7,
+                    },
+                    {
+                        name = "Delphinad Vocational Gloves",
+                        grade = 7,
+                    },
+                    {
+                        name = "Delphinad Vocational Pants",
+                        grade = 7,
+                    },
+                    {
+                        name = "Delphinad Vocational Shoes",
+                        grade = 7,
+                    },
+                    {
+                        name = "Sacred Echo",
+                        grade = 0,
                     },
                 },
             },
@@ -210,7 +260,45 @@
                     },
                 },
                 title_id = 180,
-                name = "防具",
+                name = "Armor",
+            },
+            {
+                gear = {
+                    {
+                        name = "Ayanad Gale Cap",
+                        grade = 9,
+                    },
+                    {
+                        name = "Ayanad Gale Jerkin",
+                        grade = 8,
+                    },
+                    {
+                        name = "Ayanad Gale Belt",
+                        grade = 8,
+                    },
+                    {
+                        name = "Ayanad Gale Guards",
+                        grade = 9,
+                    },
+                    {
+                        name = "Ayanad Gale Fists",
+                        grade = 8,
+                    },
+                    {
+                        name = "Ayanad Gale Breeches",
+                        grade = 8,
+                    },
+                    {
+                        name = "Ayanad Gale Boots",
+                        grade = 8,
+                    },
+                    {
+                        name = "Aria of Archery",
+                        grade = 8,
+                    },
+                },
+                title_id = 180,
+                name = "Ayanad Gale",
             },
             {
                 gear = {
@@ -224,23 +312,16 @@
                     },
                 },
                 title_id = 181,
-                name = "游泳",
+                name = "Swim",
             },
         },
     },
-    auto_raid = {
-        blocklist = {
-        },
-        hide_cancel = false,
-        enabled = true,
+    Navigate = {
+        MainWindowX = 0,
+        enabled = false,
+        MainWindowY = 0,
     },
-    reality_check = {
+    Actually_Useable_X_Up = {
         enabled = true,
-    },
-    fish_track = {
-        enabled = true,
-        ShowWait = true,
-        ShowBuffsOnTarget = false,
-        ShowTimers = true,
     },
 }

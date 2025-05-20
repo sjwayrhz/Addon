@@ -1,4 +1,6 @@
-auto_raid
 hot_swap
+Actually_Useable_X_Up
 reality_check
 fish_track
+cant_read
+Navigate
