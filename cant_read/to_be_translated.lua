@@ -1,3 +1,3 @@
 {
-    chatMsg = "||||-2||||DAILY_MSG||||Welcome!||||",
+    chatMsg = "||||-2||||DAILY_MSG||||Good-bye!||||",
 }

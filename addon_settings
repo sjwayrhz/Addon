@@ -15,16 +15,20 @@
     },
     hot_swap = {
         enabled = true,
-        x = 319,
+        x = 303.3,
         show_creation_window = true,
         settings_x = 424,
-        y = 11,
+        y = 2.05006,
         settings_y = 267,
-        hidden = true,
+        hidden = false,
         gear_sets = {
             {
                 name = "Sleep",
                 gear = {
+                    {
+                        name = "Watermelon Swimwear",
+                        grade = 3,
+                    },
                     {
                         name = "Lullaby Pajama Top",
                         grade = 4,
@@ -55,6 +59,10 @@
                 name = "Dawnsdrop",
                 gear = {
                     {
+                        name = "Merchant's Costume: Basic",
+                        grade = 2,
+                    },
+                    {
                         name = "Radiant Dawnsdrop Cap",
                         grade = 3,
                     },
@@ -84,19 +92,19 @@
                     },
                     {
                         name = "Delphinad Vocational Hood",
-                        grade = 2,
+                        grade = 3,
                     },
                     {
                         name = "Delphinad Vocational Shirt",
-                        grade = 2,
+                        grade = 3,
                     },
                     {
                         name = "Delphinad Vocational Sash",
-                        grade = 2,
+                        grade = 3,
                     },
                     {
                         name = "Delphinad Vocational Sleeves",
-                        grade = 2,
+                        grade = 3,
                     },
                     {
                         name = "Delphinad Vocational Gloves",
@@ -104,11 +112,11 @@
                     },
                     {
                         name = "Delphinad Vocational Pants",
-                        grade = 2,
+                        grade = 3,
                     },
                     {
                         name = "Delphinad Vocational Shoes",
-                        grade = 2,
+                        grade = 3,
                     },
                     {
                         name = "Delphinad Vocational Hood",
@@ -146,6 +154,10 @@
             },
             {
                 gear = {
+                    {
+                        name = "Dawnsdrop Costume",
+                        grade = 3,
+                    },
                     {
                         name = "Hellforged Warrior's Cap",
                         grade = 7,
@@ -255,6 +267,26 @@
                         grade = 7,
                     },
                     {
+                        name = "Soulforged Shirt",
+                        grade = 7,
+                    },
+                    {
+                        name = "Soulforged Gloves",
+                        grade = 7,
+                    },
+                    {
+                        name = "Soulforged Pants",
+                        grade = 7,
+                    },
+                    {
+                        name = "Soulforged Shoes",
+                        grade = 7,
+                    },
+                    {
+                        name = "Soulforged Hood",
+                        grade = 7,
+                    },
+                    {
                         name = "Croon of Shadowplay",
                         grade = 7,
                     },
@@ -264,6 +296,10 @@
             },
             {
                 gear = {
+                    {
+                        name = "Ranged Basic Costume",
+                        grade = 3,
+                    },
                     {
                         name = "Ayanad Gale Cap",
                         grade = 9,
@@ -303,6 +339,10 @@
             {
                 gear = {
                     {
+                        name = "Watermelon Swimwear",
+                        grade = 3,
+                    },
+                    {
                         name = "Granbleu's Dive Helmet",
                         grade = 0,
                     },
@@ -317,9 +357,12 @@
         },
     },
     Navigate = {
-        MainWindowX = 0,
         enabled = false,
+        TrackWindowX = 300,
+        MainWindowX = 0,
+        TrackWindowY = 300,
         MainWindowY = 0,
+        timezone_offset = 0,
     },
     Actually_Useable_X_Up = {
         enabled = true,

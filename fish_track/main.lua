@@ -1,3 +1,4 @@
+local api = require("api")
 -- Addon Information
 local fish_track = {
 	name = "fish_track",
